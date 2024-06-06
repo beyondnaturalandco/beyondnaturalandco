@@ -3,6 +3,7 @@ import "./Navbar.css";
 import { assets } from "../../assets/assets";
 import { Link } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
+import { CiSearch } from "react-icons/ci";
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
@@ -17,7 +18,7 @@ const Navbar = ({ setShowLogin }) => {
 
   return (
     <div className="navbar">
-      <Link to="/foodorder">
+      <Link to="/">
         <img src={assets.logo} alt="" className="logo" />
       </Link>
       <ul className="navbar-menu">
@@ -46,15 +47,15 @@ const Navbar = ({ setShowLogin }) => {
       <div className="navbar-right">
         <Link to="/search" onClick={() => setMenu("search")}
           className={menu === "search" ? "active" : ""}>
-          <img src={assets.search_icon} alt="" />
+          <CiSearch />
         </Link>
-        <div className="navbar-search-icon">
+        {/* <div className="navbar-search-icon">
           <Link to="/cart" onClick={() => setMenu("cart")}
           className={menu === "cart" ? "active" : ""}>
             <img src={assets.basket_icon} alt="" />
           </Link>
           <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
