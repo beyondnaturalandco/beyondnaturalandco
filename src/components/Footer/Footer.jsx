@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-content-left">
           <div className="footer-content-logo">
-            <img src={assets.logo} alt="" />
+            <img src={assets.logowhite} alt="" />
           </div>
             <p>When you walk in to work every day, you will find that the energy on the floor is just amazing at Janosa. The passion, the hunger, the drive to excel is so infectious, it brings the best out in everyone.</p>
             <div className="footer-social-icons">

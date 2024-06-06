@@ -38,6 +38,7 @@
     cursor: pointer;
     border-radius: 50%;
     transition: 0.1s;
+    object-fit: cover;
 }
 
 .explore-menu-list-item p {

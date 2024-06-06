@@ -1,0 +1,67 @@
+.detailsContainer{
+    padding: 100px 60px 10px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.detailsImage {
+    max-width: 200px; /* Ancho máximo deseado para el contenedor */
+}
+
+.responsive-image {
+    width: 100%;
+    height: auto;
+    
+}
+
+.detailsInfo{
+    padding-top: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.title{
+    font-size: 40px;
+    padding-bottom: 15px;
+}
+.description{
+    font-size: 16px;
+    color: #6e6e6e;
+}
+.ingredient{
+    padding-top: 10px;
+    font-size: 16px;
+    color: #6e6e6e;
+    list-style-type: none;
+}
+.topping{
+    padding-top: 10px;
+    font-size: 16px;
+    color: #6e6e6e;
+    list-style-type: none;
+}
+.protein{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.protein p {
+    padding-top: 5px;
+}
+@media screen and (min-width: 768px) {
+    /* Aquí puedes agregar tus reglas CSS para pantallas grandes */
+  
+    .detailsContainer {
+      padding: 150px 20px 20px 20px; /* Por ejemplo, ajusta el padding */
+      flex-direction: row;
+    }
+    .detailsInfo{
+        padding-top: 0;
+        padding-left: 30px;
+    }
+    
+  
+    .detailsImage {
+      max-width: 400px; /* Por ejemplo, un ancho máximo mayor para la imagen */
+    }
+  }
+  
