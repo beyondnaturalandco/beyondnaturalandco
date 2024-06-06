@@ -22,7 +22,7 @@ const Navbar = ({ setShowLogin }) => {
       </Link>
       <ul className="navbar-menu">
         <Link
-          to="/foodorder"
+          to="/"
           onClick={() => setMenu("home")}
           className={menu === "home" ? "active" : ""}
         >
@@ -34,13 +34,6 @@ const Navbar = ({ setShowLogin }) => {
           className={menu === "menu" ? "active" : ""}
         >
           Menu
-        </a>
-        <a
-          href="#app-download"
-          onClick={() => setMenu("mobile-app")}
-          className={menu === "mobile-app" ? "active" : ""}
-        >
-          Mobile-app
         </a>
         <a
           href="#footer"
@@ -62,7 +55,6 @@ const Navbar = ({ setShowLogin }) => {
           </Link>
           <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
         </div>
-        <button onClick={() => setShowLogin(true)}>Sign in</button>
       </div>
     </div>
   );

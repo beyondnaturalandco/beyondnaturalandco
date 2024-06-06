@@ -17,7 +17,7 @@
   background-color: rgba(255, 255, 255, 1);
 }
 .navbar .logo {
-  width: 190px;
+  width: 120px;
 }
 .navbar-menu {
   display: flex;
@@ -37,25 +37,9 @@
 .navbar-right img:hover {
   transform: scale(1.08);
 }
-.navbar button {
-  background: transparent;
-  font-size: 16px;
-  color: #49557e;
-  border: 1px solid tomato;
-  padding: 10px 30px;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.navbar button:hover {
-  background-color: #fff4f2;
-}
-.navbar .active {
-  text-transform: uppercase;
-  border-bottom: 2px solid tomato;
-}
+
 .navbar-menu a:hover {
-  color: tomato;
+  color: #525740;
 }
 .navbar li {
   cursor: pointer;
@@ -67,7 +51,7 @@
   position: absolute;
   min-width: 10px;
   min-height: 10px;
-  background-color: tomato;
+  background-color: #525740;
   border-radius: 5px;
   top: -8px;
   right: -8px;
