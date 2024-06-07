@@ -32,8 +32,7 @@
 .footer-content-center h2, .footer-content-right h2{
     color: white;
 }
-.footer-social-icons img{
-    width: 40px;
+.footer-social-icons{
     margin-right: 15px;
     cursor: pointer;
 }
