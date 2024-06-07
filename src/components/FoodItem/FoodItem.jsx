@@ -10,7 +10,7 @@ const FoodItem = ({ id, name, description, image }) => {
   return (
     <div className="food-item">
       <div className="food-item-img-container">
-        <img className="food-item-image" src={image} alt="" />
+        <img loading="lazy" className="food-item-image" src={image} alt="" />
         {!cartItems[id] ? (
           <img
             className="add"
