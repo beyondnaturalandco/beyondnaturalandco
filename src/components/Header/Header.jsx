@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './Header.css'
+import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 
 const Header = () => {
   const [bgImageLoaded, setBgImageLoaded] = useState(false);
@@ -16,7 +17,11 @@ const Header = () => {
       <div className="header-contents">
         {/* <h2>Order your favourite food here</h2>
         <p>"Indulge Your Palate: Welcome to Our Culinary Haven!" "Discover Delectable Delights: Your Dining Adventure Begins Here!"</p> */}
-        <button><a href="#explore-menu">View Menu</a></button>
+        <ScrollLink to="explore-menu"
+            spy={true}
+            smooth={true}
+            offset={-60} // Ajuste para la altura de la barra de navegación si es fija
+            duration={800}>View Menu</ScrollLink>
       </div>
     </div>
   )

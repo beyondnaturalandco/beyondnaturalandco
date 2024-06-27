@@ -1,12 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import "./Search.css";
 import { assets, food_list } from "../../assets/assets";
-import { StoreContext } from "../../context/StoreContext";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
-
-  const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
 
   return (
     <div className="search">
@@ -14,7 +11,7 @@ const Search = () => {
         <input
           id="searchInput"
           type="text"
-          placeholder="Search for restaurants and food"
+          placeholder="Search food"
           onChange={(event) => {
             setSearchTerm(event.target.value);
           }}
@@ -39,28 +36,6 @@ const Search = () => {
               <div className="food-item">
                 <div className="food-item-img-container">
                   <img className="food-item-image" src={item.image} alt="" />
-                  {!cartItems[item._id] ? (
-                    <img
-                      className="add"
-                      onClick={() => addToCart(item._id)}
-                      src={assets.add_icon_white}
-                      alt=""
-                    />
-                  ) : (
-                    <div className="food-item-counter">
-                      <img
-                        onClick={() => removeFromCart(item._id)}
-                        src={assets.remove_icon_red}
-                        alt=""
-                      />
-                      <p>{cartItems[item._id]}</p>
-                      <img
-                        onClick={() => addToCart(item._id)}
-                        src={assets.add_icon_green}
-                        alt=""
-                      />
-                    </div>
-                  )}
                 </div>
                 <div className="food-item-info">
                   <div className="food-item-name-rating">

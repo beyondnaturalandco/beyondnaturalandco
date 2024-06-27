@@ -1,64 +1,57 @@
-import React, { useContext, useState } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets/assets";
 import { Link } from "react-router-dom";
-import { StoreContext } from "../../context/StoreContext";
 import { CiSearch } from "react-icons/ci";
+import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 
-const Navbar = ({ setShowLogin }) => {
-  const [menu, setMenu] = useState("home");
-
-  /* scroll to top function */
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-
-  const { getTotalCartAmount } = useContext(StoreContext);
+const Navbar = () => {
+  const scrollToTop = () => {
+    scroll.scrollToTop({
+      smooth: true,
+      duration: 800
+    });
+  };
 
   return (
     <div className="navbar">
-      <Link to="/">
-        <img src={assets.logo} alt="" className="logo" />
+      <Link to="/" onClick={scrollToTop}>
+        <img src={assets.logo} alt="Logo" className="logo" />
       </Link>
       <ul className="navbar-menu">
-        <Link
-          to="/"
-          onClick={() => setMenu("home")}
-          className={menu === "home" ? "active" : ""}
-        >
-          <a href="#">Home</a>
-        </Link>
-        <a
-          href="#explore-menu"
-          onClick={() => setMenu("menu")}
-          className={menu === "menu" ? "active" : ""}
-        >
-          Menu
-        </a>
-        <a
-          href="#footer"
-          onClick={() => setMenu("contact-us")}
-          className={menu === "contact-us" ? "active" : ""}
-        >
-          Contact us
-        </a>
+        <li>
+          <Link to="/" onClick={scrollToTop}>
+            Home
+          </Link>
+        </li>
+        <li>
+          <ScrollLink
+            to="explore-menu"
+            spy={true}
+            smooth={true}
+            offset={-60} // Ajuste para la altura de la barra de navegación si es fija
+            duration={800}
+          >
+            Menu
+          </ScrollLink>
+        </li>
+        <li>
+          <ScrollLink
+            to="footer"
+            spy={true}
+            smooth={true}
+            offset={-60} // Ajuste para la altura de la barra de navegación si es fija
+            duration={800}
+          >
+            Contact us
+          </ScrollLink>
+        </li>
       </ul>
       <div className="navbar-right">
-        <Link to="/search" onClick={() => setMenu("search")}
-          className={menu === "search" ? "active" : ""}>
+        <Link to="/search">
           <CiSearch />
         </Link>
-        {/* <div className="navbar-search-icon">
-          <Link to="/cart" onClick={() => setMenu("cart")}
-          className={menu === "cart" ? "active" : ""}>
-            <img src={assets.basket_icon} alt="" />
-          </Link>
-          <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
-        </div> */}
       </div>
     </div>
   );
 };
-
 export default Navbar;
