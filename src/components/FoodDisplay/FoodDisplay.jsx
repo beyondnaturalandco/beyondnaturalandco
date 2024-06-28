@@ -1,3 +1,4 @@
+// FoodDisplay.jsx
 import React, { useContext } from "react";
 import "./FoodDisplay.css";
 import FoodItem from "../FoodItem/FoodItem";
@@ -18,7 +19,7 @@ const FoodDisplay = ({ category }) => {
       className={`food-display ${inView ? "visible" : ""}`}
       id="food-display"
       initial={{ y: 20, opacity: 0 }}
-      animate={inView ? { y: 0, opacity: 1 } : {}}
+      animate={{ y: 0, opacity: inView ? 1 : 0 }}  // Ajuste aquí para controlar mejor la animación de opacidad
       transition={{ duration: 0.5 }}
     >
       <h2>Top dishes near you</h2>
@@ -41,4 +42,5 @@ const FoodDisplay = ({ category }) => {
     </motion.div>
   );
 };
+
 export default FoodDisplay;

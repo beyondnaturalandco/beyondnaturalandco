@@ -5,12 +5,7 @@ import header_img from './header_img.jpg'
 import search_icon from './search_icon.png'
 import menu_1 from './menu_1.png'
 import menu_2 from './menu_2.jpg'
-
 import food_1 from './food_1.jpg'
-
-
-import add_icon_white from './add_icon_white.png'
-import add_icon_green from './add_icon_green.png'
 import remove_icon_red from './remove_icon_red.png'
 import app_store from './app_store.png'
 import play_store from './play_store.png'
@@ -39,8 +34,6 @@ export const assets = {
     header_img,
     search_icon,
     rating_starts,
-    add_icon_green,
-    add_icon_white,
     remove_icon_red,
     app_store,
     play_store,
