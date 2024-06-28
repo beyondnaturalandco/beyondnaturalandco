@@ -14,32 +14,35 @@ const FoodDisplay = ({ category }) => {
   });
 
   return (
-    <motion.div
-      ref={ref}
-      className={`food-display ${inView ? "visible" : ""}`}
-      id="food-display"
-      initial={{ y: 20, opacity: 0 }}
-      animate={{ y: 0, opacity: inView ? 1 : 0 }}  // Ajuste aquí para controlar mejor la animación de opacidad
-      transition={{ duration: 0.5 }}
-    >
-      <h2>Top dishes near you</h2>
-      <div className="food-display-list">
-        {food_list.map((item, index) => {
-          if (category === "All" || category === item.category) {
-            return (
-              <FoodItem
-                key={index}
-                id={item._id}
-                name={item.name}
-                description={item.description}
-                image={item.image}
-              />
-            );
-          }
-          return null;
-        })}
-      </div>
-    </motion.div>
+    <div className={`food-display ${inView ? "visible" : ""}`} id="food-display">
+      <motion.div
+        ref={ref}
+        initial={{ y: 20, opacity: 0 }}
+        animate={inView ? { y: 0, opacity: 1 } : {}}
+        transition={{ duration: 0.5 }}
+
+      >
+        <h2>Top dishes near you</h2>
+        <div className="food-display-list">
+          {food_list.map((item, index) => {
+            if (category === "All" || category === item.category) {
+              return (
+                <FoodItem
+                  key={index}
+                  id={item._id}
+                  name={item.name}
+                  description={item.description}
+                  image={item.image}
+                />
+              );
+            }
+            return null;
+          })}
+        </div>
+      </motion.div>
+
+    </div>
+
   );
 };
 
