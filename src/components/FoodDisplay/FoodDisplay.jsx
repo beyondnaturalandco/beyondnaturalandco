@@ -9,36 +9,30 @@ import { useInView } from "react-intersection-observer";
 const FoodDisplay = ({ category }) => {
   const { food_list } = useContext(StoreContext);
   const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.5,
+    triggerOnce: true, // Para activar la animación una vez cuando entre en la vista
+    threshold: 0.5, // Porcentaje de visibilidad para activar la detección
   });
-
   return (
-    <div className={`food-display ${inView ? "visible" : ""}`} id="food-display">
-      <motion.div
-        ref={ref}
-        initial={{ y: 20, opacity: 0 }}
-        animate={inView ? { y: 0, opacity: 1 } : {}}
-        transition={{ duration: 0.5 }}
+    <div ref={ref} className={`food-display ${inView ? "visible" : ""}`} id="food-display">
 
-      >
-        <h2>Top dishes near you</h2>
-        <div className="food-display-list">
-          {food_list.map((item, index) => {
-            if (category === "All" || category === item.category) {
-              return (
-                <FoodItem
-                  key={index}
-                  id={item._id}
-                  name={item.name}
-                  description={item.description}
-                  image={item.image}
-                />
-              );
-            }
-            return null;
-          })}
-        </div>
+      <h2>Top dishes near you</h2>
+      <motion.div className="food-display-list" initial={{ y: 20, opacity: 0 }}
+        animate={inView ? { y: 0, opacity: 1 } : {}}
+        transition={{ duration: 0.5 }}>
+        {food_list.map((item, index) => {
+          if (category === "All" || category === item.category) {
+            return (
+              <FoodItem
+                key={index}
+                id={item._id}
+                name={item.name}
+                description={item.description}
+                image={item.image}
+              />
+            );
+          }
+          return null;
+        })}
       </motion.div>
 
     </div>
