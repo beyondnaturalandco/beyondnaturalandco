@@ -27,7 +27,9 @@ const ExploreMenu = ({ category, setCategory }) => {
       >
         Choose from a diverse menu featuring a delectable array of dishes. Our mission is to satisfy your cravings and elevate your dining experience, one delicious meal at a time.
       </motion.p>
-      <div className="explore-menu-list">
+      <motion.div className="explore-menu-list" initial={{ y: 20, opacity: 0 }}
+        animate={inView ? { y: 0, opacity: 1 } : {}}
+        transition={{ duration: 0.5 }}>
         {menu_list.map((item, index) => (
           <MenuItem
             key={index}
@@ -36,7 +38,7 @@ const ExploreMenu = ({ category, setCategory }) => {
             setCategory={setCategory}
           />
         ))}
-      </div>
+      </motion.div>
       <motion.hr
         initial={{ y: 20, opacity: 0 }}
         animate={inView ? { y: 0, opacity: 1 } : {}}
