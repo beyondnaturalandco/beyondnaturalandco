@@ -1,0 +1,101 @@
+.about_me{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 15px 10px 15px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    
+}
+.about_me_all {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    border: 1px solid #000;
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+    height: 350px; /* Especifica una altura fija para el contenedor */
+    overflow: hidden; /* Oculta cualquier desbordamiento */
+    z-index: 0; /* Asegura que los hijos se posicionen correctamente */
+}
+
+.about_me_all::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),url('/src/assets/header_img.jpg');/* Ruta a tu imagen de fondo */
+    background-size: cover; /* Ajusta el tamaño de la imagen para que quepa completamente */
+    background-position: center; /* Centra la imagen de fondo */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    z-index: -1; /* Asegura que la imagen esté detrás del contenido */
+}
+
+.about_me_all h2 {
+    padding-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    color: #FCFCFC;
+    font-size: 2em;
+}
+
+.about_me_all p {
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    color: #FCFCFC;
+}
+.about_our{
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
+}
+.about_our_story h2{
+    font-size: 2em;
+}
+.about_our_story p{
+    text-align: justify;
+}
+.about_our_image {
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+    display: flex;
+    justify-content: center; /* Centra la imagen horizontalmente */
+    align-items: center; /* Centra la imagen verticalmente si hay altura fija */
+    padding: 20px; /* Añade algo de espacio alrededor del contenedor */
+}
+
+.about_our_image img {
+    max-width: 100%; /* Asegura que la imagen no exceda el ancho del contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+    object-fit: contain; /* Escala la imagen para que se ajuste dentro del contenedor manteniendo su proporción */
+}
+
+
+
+/* Tablet en modo horizontal (pantallas de 768px a 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* Tus estilos para tabletas en modo horizontal */
+    .about_me{
+        padding: 0 80px 0 80px;
+    }
+    .about_our{
+        flex-direction: row;
+    }
+}
+
+
+/* Escritorio mediano (pantallas de 1200px a 1440px) */
+@media (min-width: 1200px) and (max-width: 1440px) {
+    /* Tus estilos para escritorios medianos */
+     /* Tus estilos para tabletas en modo horizontal */
+     .about_me{
+        padding: 0 80px 0 80px;
+    }
+    .about_our{
+        flex-direction: row;
+    }
+}
