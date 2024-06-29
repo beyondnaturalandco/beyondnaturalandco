@@ -36,13 +36,13 @@ const Navbar = () => {
         </li>
         <li>
           <ScrollLink
-            to="footer"
+            to="about_me"
             spy={true}
             smooth={true}
             offset={-60} // Ajuste para la altura de la barra de navegación si es fija
             duration={800}
           >
-            Contact us
+            About
           </ScrollLink>
         </li>
       </ul>

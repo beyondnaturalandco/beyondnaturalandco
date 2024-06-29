@@ -7,7 +7,7 @@ function Details() {
 
     const [foodItem, setFoodItem] = useState(null);
     useEffect(() => {
-        console.log(id)
+        window.scrollTo(0, 0);
         // Busca el elemento correspondiente al ID en la lista de alimentos
         const selectedFoodItem = food_list.find(item => item._id === id);
         if (selectedFoodItem) {

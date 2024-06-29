@@ -6,7 +6,7 @@
     text-align: center;
 }
 .explore-menu-text{
-    max-width: 60%;
+    max-width: 90%;
     margin: auto;
     columns: #808080;
 }
@@ -33,7 +33,7 @@
         gap: 17px;
     }
     .explore-menu-text{
-        max-width: 60%;
+        max-width: 80%;
         font-size: 14px;
     }   
    
