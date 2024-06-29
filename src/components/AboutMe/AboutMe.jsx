@@ -1,6 +1,7 @@
 import "./AboutMe.css";
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
+import { assets } from '../../assets/assets'
 const AboutMe = () => {
     const [ref, inView] = useInView({
         triggerOnce: true, // Para activar la animación una vez cuando entre en la vista
@@ -22,7 +23,7 @@ const AboutMe = () => {
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil suscipit ab error, impedit eaque id? Sunt aliquid facere temporibus exercitationem ipsam dolore aliquam saepe magni perspiciatis. Excepturi, dolorem quam temporibus ex ipsa consequuntur quod aperiam, dolor error itaque autem voluptate nemo consectetur laborum officiis, molestias illum alias veniam. Perferendis, commodi.</p>
                 </div>
                 <div className="about_our_image">
-                    <img src="/src/assets/logo.png" alt="logos" />
+                    <img src={assets.logo} alt="logos" />
                 </div>
             </motion.div>
 
