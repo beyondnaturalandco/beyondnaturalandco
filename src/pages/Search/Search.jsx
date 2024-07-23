@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Search.css";
 import { assets, food_list } from "../../assets/assets";
+import { Link } from "react-router-dom";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -24,6 +25,7 @@ const Search = () => {
         {food_list
           .filter((item) => {
             if (searchTerm === "") {
+              console.log(item._id)
               return item;
             } else if (
               item.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -33,19 +35,22 @@ const Search = () => {
           })
           .map((item) => {
             return (
-              <div className="food-item">
-                <div className="food-item-img-container">
-                  <img className="food-item-image" src={item.image} alt="" />
-                </div>
-                <div className="food-item-info">
-                  <div className="food-item-name-rating">
-                    <p>{item.name}</p>
-                    <img src={assets.rating_starts} alt="" />
+              <Link to={`/details/${item._id}`}>
+                <div className="food-item">
+                  <div className="food-item-img-container">
+                    <img className="food-item-image" src={item.image} alt="" />
                   </div>
-                  <p className="food-item-desc">{item.description}</p>
-                  <p className="food-item-price">₹{item.price}</p>
+                  <div className="food-item-info">
+                    <div className="food-item-name-rating">
+                      <p>{item.name}</p>
+                      <img src={assets.rating_starts} alt="" />
+                    </div>
+                    <p className="food-item-desc">{item.description}</p>
+                    <p className="food-item-price">₹{item.price}</p>
+                  </div>
                 </div>
-              </div>
+              </Link>
+
             );
           })}
       </div>
