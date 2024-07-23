@@ -1,5 +1,5 @@
 import "./MenuPdf.css";
-import Pdf from '../../assets/Pdf/Menu.pdf'
+import Pdf from '../../assets/Pdf/Menu beyon.pdf'
 
 const MenuPdf = () => {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
