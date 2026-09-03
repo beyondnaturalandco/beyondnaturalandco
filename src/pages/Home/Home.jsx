@@ -3,6 +3,8 @@ import "./Home.css";
 import Header from "../../components/Header/Header";
 import AboutMe from "../../components/AboutMe/AboutMe";
 import MenuPdf from "../../components/menuPdf/MenuPdf";
+import cloverLogo from "../../assets/clover-logo.png";
+import grubhubLogo from "../../assets/grubhub-logo.png";
 
 const Home = () => {
   return (
@@ -21,7 +23,8 @@ const Home = () => {
             rel="noopener noreferrer"
             className="order-button clover-button"
           >
-            Order with Clover
+            <img src={cloverLogo} alt="Clover" />
+            <span>Order with Clover</span>
           </a>
 
           <a
@@ -30,7 +33,8 @@ const Home = () => {
             rel="noopener noreferrer"
             className="order-button grubhub-button"
           >
-            Order with Grubhub
+            <img src={grubhubLogo} alt="Grubhub" />
+            <span>Order with Grubhub</span>
           </a>
         </div>
       </section>
@@ -43,26 +47,3 @@ const Home = () => {
 };
 
 export default Home;
-import { FaClover } from "react-icons/fa6";
-import { SiGrubhub } from "react-icons/si";
-<div className="order-buttons">
-  <a
-    href="https://beyondnaturalandco.cloveronline.com/"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="order-button clover-button"
-  >
-    <FaClover className="order-icon" />
-    Order with Clover
-  </a>
-
-  <a
-    href="https://www.grubhub.com/restaurant/15232928"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="order-button grubhub-button"
-  >
-    <SiGrubhub className="order-icon" />
-    Order with Grubhub
-  </a>
-</div>
