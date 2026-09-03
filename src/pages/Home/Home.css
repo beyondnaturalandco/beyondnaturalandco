@@ -43,3 +43,19 @@
 .grubhub-button {
   background-color: #ef3e42;
 }
+.order-button {
+  min-width: 210px;
+  padding: 15px 28px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.order-icon {
+  font-size: 25px;
+}
