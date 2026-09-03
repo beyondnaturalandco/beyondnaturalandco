@@ -121,4 +121,22 @@
     padding: 9px 15px;
     font-size: 12px;
   }
+}@media (min-width: 901px) {
+  .navbar {
+    height: 10rem;
+  }
+
+  .navbar .logo {
+    width: 240px;
+  }
+
+  .navbar-menu {
+    font-size: 36px;
+    gap: 55px;
+  }
+
+  .order-now-button {
+    font-size: 30px;
+    padding: 14px 30px;
+  }
 }
