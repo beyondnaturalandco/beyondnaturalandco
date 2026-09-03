@@ -24,7 +24,6 @@ const Home = () => {
             className="order-button clover-button"
           >
             <img src={cloverLogo} alt="Clover" />
-            <span>Order with Clover</span>
           </a>
 
           <a
@@ -34,7 +33,6 @@ const Home = () => {
             className="order-button grubhub-button"
           >
             <img src={grubhubLogo} alt="Grubhub" />
-            <span>Order with Grubhub</span>
           </a>
         </div>
       </section>
