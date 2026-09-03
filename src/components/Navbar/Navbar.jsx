@@ -47,6 +47,20 @@ const Navbar = () => {
         </li>
       </ul>
       <div className="navbar-right">
+        <div className="navbar-right">
+  <a
+    href="https://www.grubhub.com/restaurant/15232928"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="order-now-button"
+  >
+    ORDER NOW
+  </a>
+
+  <Link to="/search">
+    <CiSearch />
+  </Link>
+</div>
         <Link to="/search">
           <CiSearch />
         </Link>
@@ -55,3 +69,26 @@ const Navbar = () => {
   );
 };
 export default Navbar;
+.order-now-button {
+  padding: 12px 24px;
+  background-color: #949b4b;
+  color: white !important;
+  border-radius: 25px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: 0.3s;
+}
+
+.order-now-button:hover {
+  background-color: #68702f;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 750px) {
+  .order-now-button {
+    padding: 9px 15px;
+    font-size: 12px;
+  }
+}
