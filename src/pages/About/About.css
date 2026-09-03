@@ -1,1 +1,93 @@
+.about-page {
+  width: 100%;
+  padding-top: 10rem;
+  background-color: #ffffff;
+}
 
+.about-banner {
+  width: 100%;
+  overflow: hidden;
+}
+
+.about-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.about-information {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 40px;
+}
+
+.founder-section {
+  max-width: 900px;
+  margin: 0 auto 70px;
+  text-align: center;
+}
+
+.founder-section h1 {
+  margin-bottom: 25px;
+  color: #71803d;
+  font-size: 48px;
+}
+
+.founder-section p,
+.mission-vision p {
+  margin-bottom: 20px;
+  color: #444444;
+  font-size: 20px;
+  line-height: 1.7;
+}
+
+.mission-vision {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 35px;
+}
+
+.mission-vision article {
+  padding: 45px 40px;
+  background-color: #f7f7f2;
+  border: 1px solid #e2e4d5;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.mission-vision h2 {
+  margin-bottom: 20px;
+  color: #71803d;
+  font-size: 36px;
+}
+
+@media (max-width: 900px) {
+  .about-page {
+    padding-top: 4rem;
+  }
+
+  .about-information {
+    padding: 50px 20px;
+  }
+
+  .founder-section {
+    margin-bottom: 45px;
+  }
+
+  .founder-section h1 {
+    font-size: 34px;
+  }
+
+  .founder-section p,
+  .mission-vision p {
+    font-size: 17px;
+  }
+
+  .mission-vision {
+    grid-template-columns: 1fr;
+  }
+
+  .mission-vision h2 {
+    font-size: 30px;
+  }
+}
