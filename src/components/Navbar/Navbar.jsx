@@ -1,8 +1,8 @@
 import "./Navbar.css";
 import { assets } from "../../assets/assets";
 import { Link } from "react-router-dom";
-import { CiSearch } from "react-icons/ci";
-import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
+import { animateScroll as scroll } from "react-scroll";
+import menuPdf from "../../assets/Pdf/Menu beyon.pdf";
 
 const Navbar = () => {
   const scrollToTop = () => {
@@ -20,32 +20,24 @@ const Navbar = () => {
 
       <ul className="navbar-menu">
         <li>
-          <Link to="/" onClick={scrollToTop}>Home</Link>
+          <Link to="/" onClick={scrollToTop}>
+            Home
+          </Link>
         </li>
 
         <li>
-          <ScrollLink
-            to="explore-menu"
-            spy={true}
-            smooth={true}
-            offset={-60}
-            duration={800}
+          <a
+            href={menuPdf}
+            target="_blank"
+            rel="noopener noreferrer"
           >
             Menu
-          </ScrollLink>
+          </a>
         </li>
 
         <li>
-          <ScrollLink
-            to="about_me"
-            spy={true}
-            smooth={true}
-            offset={-60}
-            duration={800}
-          >
-         <li>
-  <Link to="/about">About</Link>
-</li>
+          <Link to="/about">About</Link>
+        </li>
       </ul>
 
       <div className="navbar-right">
@@ -57,10 +49,6 @@ const Navbar = () => {
         >
           ORDER NOW
         </a>
-
-        <Link to="/search">
-          <CiSearch />
-        </Link>
       </div>
     </div>
   );
