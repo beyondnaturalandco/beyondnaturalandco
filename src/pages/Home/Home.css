@@ -1,0 +1,45 @@
+.order-platforms {
+  padding: 45px 20px;
+  text-align: center;
+  background-color: #ffffff;
+}
+
+.order-platforms h2 {
+  margin-bottom: 8px;
+  font-size: 32px;
+}
+
+.order-platforms p {
+  margin-bottom: 24px;
+  color: #666666;
+}
+
+.order-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.order-button {
+  min-width: 210px;
+  padding: 15px 28px;
+  border-radius: 8px;
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.order-button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.clover-button {
+  background-color: #4c8c2b;
+}
+
+.grubhub-button {
+  background-color: #ef3e42;
+}
