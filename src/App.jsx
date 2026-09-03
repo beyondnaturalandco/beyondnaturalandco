@@ -25,6 +25,7 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/order" element={<PlaceOrder />} />
           <Route path="/details/:id" element={<Details />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </div>
       <Footer />
@@ -33,3 +34,4 @@ const App = () => {
 };
 
 export default App;
+import About from "./pages/About/About";
