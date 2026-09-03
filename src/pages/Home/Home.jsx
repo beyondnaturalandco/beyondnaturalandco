@@ -2,7 +2,6 @@ import React from "react";
 import "./Home.css";
 import Header from "../../components/Header/Header";
 import AboutMe from "../../components/AboutMe/AboutMe";
-import MenuPdf from "../../components/menuPdf/MenuPdf";
 import cloverLogo from "../../assets/clover-logo.png";
 import grubhubLogo from "../../assets/grubhub-logo.png";
 
@@ -36,10 +35,6 @@ const Home = () => {
           </a>
         </div>
       </section>
-
-      <div id="explore-menu">
-        <MenuPdf />
-      </div>
     </div>
   );
 };
