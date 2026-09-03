@@ -1,7 +1,6 @@
 import React from "react";
 import "./Home.css";
 import Header from "../../components/Header/Header";
-import AboutMe from "../../components/AboutMe/AboutMe";
 import cloverLogo from "../../assets/clover-logo.png";
 import grubhubLogo from "../../assets/grubhub-logo.png";
 
@@ -9,7 +8,6 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <AboutMe />
 
       <section className="order-platforms">
         <h2>Order Online</h2>
