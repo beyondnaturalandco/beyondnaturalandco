@@ -1,12 +1,14 @@
-import "./AboutMe.css";
-import aboutUs from "../../assets/about-us.png";
+.about-banner {
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  margin: 30px 0;
+  transform: translateX(-50%);
+  overflow: hidden;
+}
 
-const AboutMe = () => {
-  return (
-    <section className="about-banner" id="about_me">
-      <img src={aboutUs} alt="About Beyond Natural and Co" />
-    </section>
-  );
-};
-
-export default AboutMe;
+.about-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
