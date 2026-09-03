@@ -1,7 +1,7 @@
 .order-platforms {
   padding: 45px 20px;
   text-align: center;
-  background-color: #ffffff;
+  background: white;
 }
 
 .order-platforms h2 {
@@ -10,52 +10,50 @@
 }
 
 .order-platforms p {
-  margin-bottom: 24px;
-  color: #666666;
+  margin-bottom: 25px;
+  color: #666;
 }
 
 .order-buttons {
   display: flex;
   justify-content: center;
-  gap: 18px;
+  gap: 20px;
   flex-wrap: wrap;
 }
 
 .order-button {
-  min-width: 210px;
-  padding: 15px 28px;
-  border-radius: 8px;
-  color: #ffffff;
-  font-weight: 700;
-  text-decoration: none;
-  transition: transform 0.2s, opacity 0.2s;
-}
-
-.order-button:hover {
-  transform: translateY(-2px);
-  opacity: 0.9;
-}
-
-.clover-button {
-  background-color: #4c8c2b;
-}
-
-.grubhub-button {
-  background-color: #ef3e42;
-}
-.order-button {
-  min-width: 210px;
-  padding: 15px 28px;
-  border-radius: 8px;
-  color: white;
-  font-weight: 700;
-  text-decoration: none;
+  width: 290px;
+  min-height: 75px;
+  padding: 12px 22px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 14px;
+  background: white;
+  border: 2px solid;
+  border-radius: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.2s;
 }
 
-.order-icon {
-  font-size: 25px;
+.order-button img {
+  width: auto;
+  height: 32px;
+  object-fit: contain;
+}
+
+.clover-button {
+  color: #235918;
+  border-color: #235918;
+}
+
+.grubhub-button {
+  color: #e95b27;
+  border-color: #e95b27;
+}
+
+.order-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
 }
