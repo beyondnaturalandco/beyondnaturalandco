@@ -43,9 +43,9 @@ const Navbar = () => {
             offset={-60}
             duration={800}
           >
-            About
-          </ScrollLink>
-        </li>
+         <li>
+  <Link to="/about">About</Link>
+</li>
       </ul>
 
       <div className="navbar-right">
