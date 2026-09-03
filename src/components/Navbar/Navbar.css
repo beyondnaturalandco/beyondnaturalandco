@@ -101,4 +101,24 @@
   .navbar-menu {
     display: none;
   }
+}.order-now-button {
+  padding: 12px 24px;
+  background-color: #949b4b;
+  color: white !important;
+  border-radius: 25px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.order-now-button:hover {
+  background-color: #68702f;
+}
+
+@media (max-width: 750px) {
+  .order-now-button {
+    padding: 9px 15px;
+    font-size: 12px;
+  }
 }
