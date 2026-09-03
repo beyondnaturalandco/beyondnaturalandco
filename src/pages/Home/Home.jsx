@@ -43,3 +43,26 @@ const Home = () => {
 };
 
 export default Home;
+import { FaClover } from "react-icons/fa6";
+import { SiGrubhub } from "react-icons/si";
+<div className="order-buttons">
+  <a
+    href="https://beyondnaturalandco.cloveronline.com/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="order-button clover-button"
+  >
+    <FaClover className="order-icon" />
+    Order with Clover
+  </a>
+
+  <a
+    href="https://www.grubhub.com/restaurant/15232928"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="order-button grubhub-button"
+  >
+    <SiGrubhub className="order-icon" />
+    Order with Grubhub
+  </a>
+</div>
