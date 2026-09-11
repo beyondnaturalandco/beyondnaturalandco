@@ -47,3 +47,58 @@
 .order-button:hover {
   transform: scale(1.06);
 }
+/* =========================
+   MOBILE - HOME
+   ========================= */
+
+@media (max-width: 768px) {
+
+  /* Banner principal */
+  .header,
+  .hero,
+  .home-banner,
+  .banner {
+    width: 100%;
+    min-height: 520px;
+    overflow: hidden;
+  }
+
+  /* Imagen del banner */
+  .header img,
+  .hero img,
+  .home-banner img,
+  .banner img {
+    width: 100%;
+    height: 520px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* Evita espacios laterales */
+  .home {
+    width: 100%;
+    overflow-x: hidden;
+  }
+}
+
+
+/* iPhone y celulares pequeños */
+@media (max-width: 480px) {
+
+  .header,
+  .hero,
+  .home-banner,
+  .banner {
+    min-height: 500px;
+  }
+
+  .header img,
+  .hero img,
+  .home-banner img,
+  .banner img {
+    height: 500px;
+    object-fit: cover;
+    object-position: center;
+  }
+}
