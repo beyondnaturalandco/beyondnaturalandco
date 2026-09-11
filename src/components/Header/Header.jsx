@@ -14,13 +14,14 @@ const Header = () => {
           Eat better. Feel better. Go Beyond.
         </p>
 
-        <a
-          href="https://beyondnaturalandco.cloveronline.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="header-button"
-        >
-          ORDER NOW
+       <a
+  href="https://www.grubhub.com/restaurant/15232928"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="header-button"
+>
+  ORDER NOW
+</a>
         </a>
       </div>
     </header>
