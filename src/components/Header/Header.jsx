@@ -10,18 +10,17 @@ const Header = () => {
         <h1>Fresh • Healthy • Natural</h1>
 
         <p>
-          Fresh, balanced meals made with quality ingredients.
-          Eat better. Feel better. Go Beyond.
+          Fresh, balanced meals made with quality ingredients. Eat better.
+          Feel better. Go Beyond.
         </p>
 
-       <a
-  href="https://www.grubhub.com/restaurant/15232928"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="header-button"
->
-  ORDER NOW
-</a>
+        <a
+          href="https://www.grubhub.com/restaurant/15232928"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="header-button"
+        >
+          ORDER NOW
         </a>
       </div>
     </header>
