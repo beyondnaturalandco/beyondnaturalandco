@@ -2,16 +2,28 @@ import React from "react";
 import "./Header.css";
 
 const Header = () => {
+
+  const bannerImage = `${import.meta.env.BASE_URL}header_img.webp`;
+
   return (
-    <header className="header">
+    <header
+      className="header"
+      style={{
+        backgroundImage: `url("${bannerImage}")`,
+      }}
+    >
+
       <div className="header-overlay"></div>
 
       <div className="header-contents">
-        <h1>Fresh • Healthy • Natural</h1>
+
+        <h1>
+          Fresh • Healthy • Natural
+        </h1>
 
         <p>
-          Fresh, balanced meals made with quality ingredients. Eat better.
-          Feel better. Go Beyond.
+          Fresh, balanced meals made with quality ingredients.
+          Eat better. Feel better. Go Beyond.
         </p>
 
         <a
@@ -22,7 +34,9 @@ const Header = () => {
         >
           ORDER NOW
         </a>
+
       </div>
+
     </header>
   );
 };
