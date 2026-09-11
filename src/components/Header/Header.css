@@ -1,127 +1,112 @@
-
 /* =========================================
-   BEYOND NATURAL & CO. - HEADER
+   HEADER CONTENT
    ========================================= */
 
-.header {
-  width: 100%;
-  height: 82vh;
-  min-height: 600px;
-
-  position: relative;
-  overflow: hidden;
-
-  background-image: url("https://github.com/beyondnaturalandco/beyondnaturalandco/blob/main/public/header_img.webp?raw=true");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-}
-
-
-/* =========================================
-   OVERLAY
-   ========================================= */
-
-.header-overlay {
+.header-contents {
   position: absolute;
   inset: 0;
 
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.38) 0%,
-    rgba(0, 0, 0, 0.16) 45%,
-    rgba(0, 0, 0, 0) 75%
-  );
+  z-index: 2;
 
-  z-index: 1;
+  color: white;
   pointer-events: none;
 }
 
 
 /* =========================================
-   TEXT CONTENT
+   FRESH • HEALTHY • NATURAL
    ========================================= */
 
-.header-contents {
-  position: absolute;
-
-  left: 5%;
-  bottom: 10%;
-
-  width: 42%;
-  max-width: 650px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
-  gap: 18px;
-
-  color: white;
-
-  z-index: 2;
-
-  animation: fadeIn 1.5s ease;
-}
-
-
-/* Compatible con H1 o H2 */
 .header-contents h1,
 .header-contents h2 {
+  position: absolute;
+
+  right: 5%;
+  bottom: 24%;
+
+  width: 42%;
+  max-width: 620px;
+
   margin: 0;
 
   color: white;
 
-  font-size: clamp(42px, 5vw, 76px);
+  font-size: clamp(46px, 4.5vw, 72px);
   font-weight: 600;
 
-  line-height: 1.02;
+  line-height: 1.05;
   letter-spacing: -1px;
-}
 
+  text-align: center;
 
-/* DESCRIPTION */
-
-.header-contents p {
-  margin: 0;
-
-  color: white;
-
-  font-size: clamp(16px, 1.2vw, 20px);
-
-  line-height: 1.5;
-
-  max-width: 600px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
 }
 
 
 /* =========================================
-   ORDER NOW BUTTON
+   DESCRIPTION
+   ========================================= */
+
+.header-contents p {
+  position: absolute;
+
+  right: 5%;
+  bottom: 15%;
+
+  width: 42%;
+  max-width: 520px;
+
+  margin: 0;
+
+  color: white;
+
+  font-size: clamp(14px, 1.05vw, 17px);
+  font-weight: 400;
+
+  line-height: 1.45;
+
+  text-align: center;
+
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================================
+   ORDER NOW
+   SE QUEDA ABAJO A LA IZQUIERDA
    ========================================= */
 
 .header-button,
 .header-contents a {
+  position: absolute;
+
+  left: 5%;
+  bottom: 7%;
+
   display: inline-flex;
 
   align-items: center;
   justify-content: center;
 
-  margin-top: 5px;
-
   padding: 14px 30px;
 
   background-color: white;
-
-  color: #111;
-  text-decoration: none;
+  color: #111111;
 
   border: 1px solid #949b4b;
   border-radius: 50px;
 
+  text-decoration: none;
+
   font-size: 15px;
   font-weight: 600;
 
-  transition: all 0.25s ease;
+  pointer-events: auto;
+
+  transition:
+    transform 0.25s ease,
+    background-color 0.25s ease,
+    color 0.25s ease;
 }
 
 
@@ -140,33 +125,31 @@
 
 @media (max-width: 1050px) {
 
-  .header {
-    height: 72vh;
-    min-height: 550px;
-
-    /* IMPORTANTE */
-    background-size: cover;
-    background-position: center center;
-  }
-
-
-  .header-contents {
-    width: 55%;
-    max-width: 580px;
-
-    left: 5%;
-    bottom: 9%;
-  }
-
-
   .header-contents h1,
   .header-contents h2 {
-    font-size: clamp(38px, 6vw, 60px);
+    right: 5%;
+    bottom: 25%;
+
+    width: 46%;
+
+    font-size: clamp(38px, 5vw, 56px);
   }
 
 
   .header-contents p {
-    font-size: 16px;
+    right: 5%;
+    bottom: 15%;
+
+    width: 46%;
+
+    font-size: 14px;
+  }
+
+
+  .header-button,
+  .header-contents a {
+    left: 5%;
+    bottom: 7%;
   }
 }
 
@@ -177,77 +160,59 @@
 
 @media (max-width: 750px) {
 
-  .header {
-    width: 100%;
-
-    /*
-      YA NO USAMOS 30vh.
-      El banner queda grande en celular.
-    */
-
-    height: 70vh;
-    min-height: 520px;
-    max-height: 700px;
-
-    /*
-      COVER hace que la imagen llene
-      toda la pantalla.
-    */
-
-    background-size: cover;
-
-    /*
-      Ajusta aquí si quieres mover
-      la imagen horizontalmente.
-    */
-
-    background-position: center center;
-  }
-
-
-  .header-overlay {
-    background: linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.58) 0%,
-      rgba(0, 0, 0, 0.15) 45%,
-      rgba(0, 0, 0, 0) 75%
-    );
-  }
-
-
-  .header-contents {
-    width: 90%;
-    max-width: 90%;
-
-    left: 5%;
-    bottom: 7%;
-
-    gap: 14px;
-  }
-
+  /* TITULO */
 
   .header-contents h1,
   .header-contents h2 {
-    font-size: 36px;
+    right: 5%;
+    left: auto;
+
+    bottom: 27%;
+
+    width: 58%;
+    max-width: 58%;
+
+    font-size: 32px;
 
     line-height: 1.05;
+
+    text-align: center;
   }
 
+
+  /* DESCRIPTION */
 
   .header-contents p {
     display: block;
 
-    font-size: 15px;
+    right: 5%;
+    left: auto;
 
-    max-width: 420px;
+    bottom: 16%;
+
+    width: 58%;
+    max-width: 58%;
+
+    font-size: 12px;
+
+    line-height: 1.4;
+
+    text-align: center;
   }
 
 
+  /* ORDER NOW SIGUE EN SU POSICIÓN */
+
   .header-button,
   .header-contents a {
-    padding: 13px 25px;
+    left: 5%;
+    right: auto;
 
-    font-size: 14px;
+    bottom: 6%;
+
+    padding: 12px 24px;
+
+    font-size: 13px;
   }
 }
 
@@ -258,66 +223,40 @@
 
 @media (max-width: 480px) {
 
-  .header {
-    height: 68vh;
-
-    min-height: 500px;
-
-    background-size: cover;
-
-    /*
-      Si la parte importante de tu foto
-      está más hacia un lado, después
-      ajustamos este porcentaje.
-    */
-
-    background-position: center center;
-  }
-
-
-  .header-contents {
-    left: 5%;
-    bottom: 6%;
-
-    width: 90%;
-  }
-
-
   .header-contents h1,
   .header-contents h2 {
-    font-size: 32px;
+    right: 4%;
+
+    bottom: 28%;
+
+    width: 62%;
+    max-width: 62%;
+
+    font-size: 28px;
   }
 
 
   .header-contents p {
-    font-size: 14px;
+    right: 4%;
 
-    line-height: 1.4;
+    bottom: 17%;
+
+    width: 62%;
+    max-width: 62%;
+
+    font-size: 11px;
+
+    line-height: 1.35;
   }
 
 
   .header-button,
   .header-contents a {
-    padding: 12px 22px;
+    left: 5%;
+    bottom: 6%;
+
+    padding: 11px 22px;
 
     font-size: 13px;
-  }
-}
-
-
-/* =========================================
-   ANIMATION
-   ========================================= */
-
-@keyframes fadeIn {
-
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
