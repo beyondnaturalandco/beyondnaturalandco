@@ -38,6 +38,10 @@ const Navbar = () => {
         <li>
           <Link to="/about">About</Link>
         </li>
+
+        <li>
+          <Link to="/catering">Catering</Link>
+        </li>
       </ul>
 
       <div className="navbar-right">
