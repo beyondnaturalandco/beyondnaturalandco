@@ -1,26 +1,254 @@
+/* =========================================
+   BEYOND NATURAL & CO. - CATERING SHOP
+   ========================================= */
+
 .catering-page {
-  min-height: 60vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 64px 5%;
-  box-sizing: border-box;
+  background: #ffffff;
+  color: #1f1f1f;
 }
 
-.catering-page__content {
-  width: 100%;
-  max-width: 720px;
+.catering-hero {
+  padding: 86px 5% 70px;
+  text-align: center;
+  background:
+    linear-gradient(180deg, rgba(148, 155, 75, 0.09), rgba(255, 255, 255, 0));
+}
+
+.catering-eyebrow {
+  margin: 0 0 10px;
+  color: #949b4b;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.catering-hero h1 {
+  margin: 0;
+  font-size: clamp(46px, 7vw, 84px);
+  line-height: 0.95;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.catering-intro {
+  max-width: 700px;
+  margin: 22px auto 0;
+  font-size: clamp(17px, 2vw, 21px);
+  line-height: 1.55;
+  color: #555555;
+}
+
+.catering-shop {
+  padding: 24px 5% 84px;
+}
+
+.catering-section-heading {
+  max-width: 760px;
+  margin: 0 auto 34px;
   text-align: center;
 }
 
-.catering-page h1 {
-  margin: 0 0 14px;
-  font-size: clamp(34px, 6vw, 64px);
-  font-weight: 600;
+.catering-section-heading p {
+  margin: 0 0 8px;
+  color: #949b4b;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
 }
 
-.catering-page p {
+.catering-section-heading h2 {
   margin: 0;
-  font-size: 18px;
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.1;
+}
+
+.catering-grid {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.catering-card {
+  min-height: 330px;
+  padding: 30px;
+  border: 1px solid #e8e8e8;
+  border-radius: 22px;
+  background: #fafafa;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.catering-card:hover {
+  transform: translateY(-3px);
+  border-color: #d8d8d8;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.07);
+}
+
+.catering-card h3 {
+  margin: 0 0 14px;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.catering-card p {
+  margin: 0;
+  color: #606060;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.catering-checkout-button {
+  width: 100%;
+  margin-top: 28px;
+  padding: 14px 20px;
+  border: 0;
+  border-radius: 999px;
+  background: #949b4b;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.catering-checkout-button:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+
+.catering-payment {
+  width: min(1180px, calc(100% - 10%));
+  margin: 0 auto 28px;
+  padding: 42px;
+  border-radius: 24px;
+  background: #171717;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  gap: 36px;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.catering-payment > div:first-child {
+  max-width: 650px;
+}
+
+.catering-payment__label {
+  margin: 0 0 8px !important;
+  color: #c3ca72 !important;
+  font-size: 12px !important;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.catering-payment h2 {
+  margin: 0 0 12px;
+  font-size: clamp(27px, 4vw, 42px);
+  line-height: 1.05;
+}
+
+.catering-payment p {
+  margin: 0;
+  color: #d2d2d2;
+  font-size: 15px;
   line-height: 1.6;
+}
+
+.catering-payment__methods {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 9px;
+  max-width: 320px;
+}
+
+.catering-payment__methods span {
+  padding: 10px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.23);
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.catering-setup-notice {
+  width: min(1180px, calc(100% - 10%));
+  margin: 0 auto 82px;
+  padding: 18px 22px;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  box-sizing: border-box;
+  font-size: 13px;
+}
+
+.catering-setup-notice strong {
+  flex: 0 0 auto;
+  color: #949b4b;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
+.catering-setup-notice span {
+  color: #666666;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .catering-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .catering-card {
+    min-height: 250px;
+  }
+
+  .catering-payment {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .catering-payment__methods {
+    justify-content: flex-start;
+    max-width: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .catering-hero {
+    padding: 58px 5% 48px;
+  }
+
+  .catering-shop {
+    padding-bottom: 58px;
+  }
+
+  .catering-card {
+    padding: 24px;
+    border-radius: 18px;
+  }
+
+  .catering-payment {
+    width: 90%;
+    padding: 28px 24px;
+    border-radius: 18px;
+  }
+
+  .catering-setup-notice {
+    width: 90%;
+    margin-bottom: 58px;
+    flex-direction: column;
+    gap: 6px;
+  }
 }
