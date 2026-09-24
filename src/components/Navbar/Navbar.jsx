@@ -21,7 +21,7 @@ const Navbar = () => {
       <ul className="navbar-menu">
         <li>
           <Link to="/" onClick={scrollToTop}>
-            Home
+            HOME
           </Link>
         </li>
 
@@ -31,7 +31,7 @@ const Navbar = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Menu
+            MENU
           </a>
         </li>
 
