@@ -138,11 +138,10 @@ const Catering = () => {
 
         <div className="custom-catering-layout">
           <div className="custom-menu-groups">
-            {cateringMenuSections.map((section, sectionIndex) => (
+            {cateringMenuSections.map((section) => (
               <details
                 className="custom-menu-category"
                 key={section.id}
-                open={sectionIndex < 2}
               >
                 <summary>
                   <div>
