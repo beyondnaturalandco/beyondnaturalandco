@@ -6,6 +6,8 @@ const businessPhone = "+19144264266";
 
 const Catering = () => {
   const [quantities, setQuantities] = useState({});
+  const [customizations, setCustomizations] = useState({});
+  const [customizingItem, setCustomizingItem] = useState(null);
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -39,9 +41,11 @@ const Catering = () => {
           meta: item.meta || "",
           category: item.category,
           quantity: Number(quantities[item.id] || 0),
+          customization: customizations[item.id] || {},
+          customizationSchema: item.customization || null,
         }))
         .filter((item) => item.quantity > 0),
-    [flatMenu, quantities]
+    [flatMenu, quantities, customizations]
   );
 
   const totalUnits = selectedItems.reduce((sum, item) => sum + item.quantity, 0);
@@ -50,6 +54,86 @@ const Catering = () => {
     setQuantities((current) => {
       const next = Math.max(0, Number(current[itemId] || 0) + delta);
       return { ...current, [itemId]: next };
+    });
+  };
+
+  const openCustomizer = (item) => {
+    setQuantities((current) => ({
+      ...current,
+      [item.id]: Math.max(1, Number(current[item.id] || 0)),
+    }));
+    setCustomizingItem(item);
+    setMessage("");
+  };
+
+  const toggleCustomization = (itemId, groupKey, group, option) => {
+    setCustomizations((current) => {
+      const itemConfig = current[itemId] || {};
+
+      if (group.type === "single") {
+        return {
+          ...current,
+          [itemId]: {
+            ...itemConfig,
+            [groupKey]: option,
+          },
+        };
+      }
+
+      const existing = Array.isArray(itemConfig[groupKey]) ? itemConfig[groupKey] : [];
+      const isSelected = existing.includes(option);
+
+      if (isSelected) {
+        return {
+          ...current,
+          [itemId]: {
+            ...itemConfig,
+            [groupKey]: existing.filter((value) => value !== option),
+          },
+        };
+      }
+
+      if (group.max && existing.length >= group.max) {
+        return current;
+      }
+
+      return {
+        ...current,
+        [itemId]: {
+          ...itemConfig,
+          [groupKey]: [...existing, option],
+        },
+      };
+    });
+  };
+
+  const customizationSummary = (item) => {
+    if (!item.customizationSchema) return "";
+
+    const config = customizations[item.id] || {};
+
+    return Object.entries(item.customizationSchema)
+      .map(([groupKey, group]) => {
+        const value = config[groupKey];
+        const selected = Array.isArray(value) ? value : value ? [value] : [];
+        return selected.length ? `${group.label.replace(/^Choose[^:]*:?/i, "").trim() || groupKey}: ${selected.join(", ")}` : "";
+      })
+      .filter(Boolean)
+      .join(" · ");
+  };
+
+  const validateCustomization = (item) => {
+    if (!item.customizationSchema) return true;
+
+    const config = customizations[item.id] || {};
+
+    return Object.entries(item.customizationSchema).every(([groupKey, group]) => {
+      const required = group.label.toLowerCase().startsWith("choose");
+      if (!required) return true;
+
+      const value = config[groupKey];
+      if (Array.isArray(value)) return value.length > 0;
+      return Boolean(value);
     });
   };
 
@@ -64,6 +148,13 @@ const Catering = () => {
 
     if (!selectedItems.length) {
       setMessage("Please select at least one catering item.");
+      return;
+    }
+
+    const incompleteCustomItem = selectedItems.find((item) => !validateCustomization(item));
+
+    if (incompleteCustomItem) {
+      setMessage(`Please complete the selections for ${incompleteCustomItem.name}.`);
       return;
     }
 
@@ -85,7 +176,23 @@ const Catering = () => {
     const productLines = selectedItems
       .map((item) => {
         const label = item.meta ? `${item.name} (${item.meta})` : item.name;
-        return `• ${item.quantity} × ${label} — ${item.category}`;
+        const optionLines = item.customizationSchema
+          ? Object.entries(item.customizationSchema)
+              .map(([groupKey, group]) => {
+                const value = item.customization[groupKey];
+                const selected = Array.isArray(value) ? value : value ? [value] : [];
+                return selected.length ? `   - ${group.label}: ${selected.join(", ")}` : "";
+              })
+              .filter(Boolean)
+              .join("\n")
+          : "";
+
+        return [
+          `• ${item.quantity} × ${label} — ${item.category}`,
+          optionLines,
+        ]
+          .filter(Boolean)
+          .join("\n");
       })
       .join("\n");
 
@@ -139,10 +246,7 @@ const Catering = () => {
         <div className="custom-catering-layout">
           <div className="custom-menu-groups">
             {cateringMenuSections.map((section) => (
-              <details
-                className="custom-menu-category"
-                key={section.id}
-              >
+              <details className="custom-menu-category" key={section.id}>
                 <summary>
                   <div>
                     <span>{section.items.length} OPTIONS</span>
@@ -155,6 +259,7 @@ const Catering = () => {
                 <div className="custom-products">
                   {section.items.map((item) => {
                     const quantity = Number(quantities[item.id] || 0);
+                    const summary = customizationSummary(item);
 
                     return (
                       <article className="custom-product" key={item.id}>
@@ -162,31 +267,50 @@ const Catering = () => {
                           <div className="custom-product__meta-row">
                             <span>{section.title}</span>
                             {item.meta && <em>{item.meta}</em>}
+                            {item.customization && <em>CUSTOMIZABLE</em>}
                           </div>
                           <h3>{item.name}</h3>
                           <p>{item.description}</p>
+
+                          {summary && (
+                            <div className="custom-product__selection">
+                              {summary}
+                            </div>
+                          )}
                         </div>
 
-                        <div
-                          className="quantity-control"
-                          aria-label={`Quantity for ${item.name}`}
-                        >
-                          <button
-                            type="button"
-                            onClick={() => changeQuantity(item.id, -1)}
-                            disabled={quantity === 0}
-                            aria-label={`Remove one ${item.name}`}
+                        <div className="custom-product__actions">
+                          <div
+                            className="quantity-control"
+                            aria-label={`Quantity for ${item.name}`}
                           >
-                            −
-                          </button>
-                          <strong>{quantity}</strong>
-                          <button
-                            type="button"
-                            onClick={() => changeQuantity(item.id, 1)}
-                            aria-label={`Add one ${item.name}`}
-                          >
-                            +
-                          </button>
+                            <button
+                              type="button"
+                              onClick={() => changeQuantity(item.id, -1)}
+                              disabled={quantity === 0}
+                              aria-label={`Remove one ${item.name}`}
+                            >
+                              −
+                            </button>
+                            <strong>{quantity}</strong>
+                            <button
+                              type="button"
+                              onClick={() => changeQuantity(item.id, 1)}
+                              aria-label={`Add one ${item.name}`}
+                            >
+                              +
+                            </button>
+                          </div>
+
+                          {item.customization && (
+                            <button
+                              type="button"
+                              className="customize-button"
+                              onClick={() => openCustomizer(item)}
+                            >
+                              {summary ? "EDIT OPTIONS" : "CHOOSE OPTIONS"}
+                            </button>
+                          )}
                         </div>
                       </article>
                     );
@@ -203,11 +327,16 @@ const Catering = () => {
             {selectedItems.length ? (
               <div className="quote-summary__items">
                 {selectedItems.map((item) => (
-                  <div key={item.id}>
-                    <span>
-                      {item.name}
-                      {item.meta ? ` · ${item.meta}` : ""}
-                    </span>
+                  <div className="quote-summary__item" key={item.id}>
+                    <div>
+                      <span>
+                        {item.name}
+                        {item.meta ? ` · ${item.meta}` : ""}
+                      </span>
+                      {item.customizationSchema && (
+                        <small>{customizationSummary(item) || "Options not selected yet"}</small>
+                      )}
+                    </div>
                     <strong>× {item.quantity}</strong>
                   </div>
                 ))}
@@ -298,7 +427,7 @@ const Catering = () => {
               rows="4"
               value={form.notes}
               onChange={updateField}
-              placeholder="Dietary requests, make-your-own selections, smoothie add-ons, event timing, setup notes, or anything else we should know."
+              placeholder="Dietary requests, event timing, setup notes, or anything else we should know."
             />
           </label>
 
@@ -344,6 +473,94 @@ const Catering = () => {
           information is entered directly on Clover’s secure payment page.
         </span>
       </section>
+
+      {customizingItem && (
+        <div className="option-modal-backdrop">
+          <section
+            className="option-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="customize-title"
+          >
+            <div className="option-modal__header">
+              <div>
+                <p>CUSTOMIZE</p>
+                <h2 id="customize-title">
+                  {customizingItem.name}
+                  {customizingItem.meta ? ` · ${customizingItem.meta}` : ""}
+                </h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => setCustomizingItem(null)}
+                aria-label="Close customization"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="option-groups">
+              {Object.entries(customizingItem.customization || {}).map(
+                ([groupKey, group]) => {
+                  const currentValue = customizations[customizingItem.id]?.[groupKey];
+                  const selectedValues = Array.isArray(currentValue)
+                    ? currentValue
+                    : currentValue
+                    ? [currentValue]
+                    : [];
+
+                  return (
+                    <fieldset className="option-group" key={groupKey}>
+                      <legend>
+                        {group.label}
+                        {group.max && group.type !== "single" && (
+                          <small> Max {group.max}</small>
+                        )}
+                      </legend>
+
+                      <div className="option-grid">
+                        {group.options.map((option) => {
+                          const selected = selectedValues.includes(option);
+
+                          return (
+                            <label
+                              className={`option-choice ${selected ? "selected" : ""}`}
+                              key={option}
+                            >
+                              <input
+                                type={group.type === "single" ? "radio" : "checkbox"}
+                                name={`${customizingItem.id}-${groupKey}`}
+                                checked={selected}
+                                onChange={() =>
+                                  toggleCustomization(
+                                    customizingItem.id,
+                                    groupKey,
+                                    group,
+                                    option
+                                  )
+                                }
+                              />
+                              <span>{option}</span>
+                            </label>
+                          );
+                        })}
+                      </div>
+                    </fieldset>
+                  );
+                }
+              )}
+            </div>
+
+            <button
+              type="button"
+              className="option-modal__done"
+              onClick={() => setCustomizingItem(null)}
+            >
+              DONE
+            </button>
+          </section>
+        </div>
+      )}
     </main>
   );
 };
