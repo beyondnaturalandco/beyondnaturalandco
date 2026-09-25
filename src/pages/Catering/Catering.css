@@ -48,7 +48,7 @@
   text-align: center;
 }
 
-.catering-section-heading p {
+.catering-section-heading > p {
   margin: 0 0 8px;
   color: #949b4b;
   font-size: 12px;
@@ -62,6 +62,18 @@
   line-height: 1.1;
 }
 
+.catering-test-note {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #f3f4e8;
+  color: #6e742f;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
 .catering-grid {
   width: min(1180px, 100%);
   margin: 0 auto;
@@ -71,7 +83,7 @@
 }
 
 .catering-card {
-  min-height: 330px;
+  min-height: 350px;
   padding: 30px;
   border: 1px solid #e8e8e8;
   border-radius: 22px;
@@ -92,6 +104,14 @@
   box-shadow: 0 14px 36px rgba(0, 0, 0, 0.07);
 }
 
+.catering-card__people {
+  margin: 0 0 12px !important;
+  color: #949b4b !important;
+  font-size: 11px !important;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
 .catering-card h3 {
   margin: 0 0 14px;
   font-size: 22px;
@@ -105,6 +125,14 @@
   line-height: 1.65;
 }
 
+.catering-card__price {
+  display: block;
+  margin-top: 24px;
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
 .catering-checkout-button {
   width: 100%;
   margin-top: 28px;
@@ -116,11 +144,11 @@
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.06em;
+  cursor: pointer;
 }
 
-.catering-checkout-button:disabled {
-  opacity: 0.48;
-  cursor: not-allowed;
+.catering-checkout-button:hover {
+  filter: brightness(0.94);
 }
 
 .catering-payment {
@@ -205,6 +233,148 @@
   line-height: 1.5;
 }
 
+.catering-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.58);
+  backdrop-filter: blur(4px);
+}
+
+.catering-modal {
+  width: min(560px, 100%);
+  padding: 30px;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.24);
+  box-sizing: border-box;
+}
+
+.catering-modal__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.catering-modal__header p {
+  margin: 0 0 6px;
+  color: #949b4b;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.catering-modal__header h2 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.catering-modal__close {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #e4e4e4;
+  border-radius: 50%;
+  background: #ffffff;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.catering-order-summary {
+  margin: 28px 0 18px;
+  border-top: 1px solid #ececec;
+  border-bottom: 1px solid #ececec;
+}
+
+.catering-order-summary div {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 15px 0;
+}
+
+.catering-order-summary div + div {
+  border-top: 1px solid #f1f1f1;
+}
+
+.catering-order-summary span {
+  color: #6a6a6a;
+  font-size: 14px;
+}
+
+.catering-order-summary strong {
+  text-align: right;
+}
+
+.catering-test-alert {
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f7f7ef;
+  color: #686d35;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.catering-modal__pay,
+.catering-success button {
+  width: 100%;
+  padding: 15px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: #949b4b;
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.catering-modal__pay:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.catering-success {
+  text-align: center;
+}
+
+.catering-success__icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #949b4b;
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.catering-success p {
+  margin: 0 0 8px;
+  color: #949b4b;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.catering-success h2 {
+  margin: 0 0 8px;
+  font-size: 34px;
+}
+
+.catering-success span {
+  display: block;
+  margin-bottom: 26px;
+  color: #606060;
+}
+
 @media (max-width: 900px) {
   .catering-grid {
     grid-template-columns: 1fr;
@@ -250,5 +420,14 @@
     margin-bottom: 58px;
     flex-direction: column;
     gap: 6px;
+  }
+
+  .catering-modal {
+    padding: 24px;
+    border-radius: 20px;
+  }
+
+  .catering-modal__header h2 {
+    font-size: 26px;
   }
 }
