@@ -101,3 +101,39 @@
     flex: none;
   }
 }
+
+
+/* iPhone portrait refinement */
+@media (max-width: 430px) and (orientation: portrait) {
+  .order-platforms {
+    padding: 30px 14px 36px;
+  }
+
+  .order-platforms h2 {
+    font-size: 26px;
+  }
+
+  .order-platforms p {
+    margin: 6px auto 18px;
+    max-width: 290px;
+    font-size: 13px;
+  }
+
+  .order-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .order-button {
+    width: 100% !important;
+    max-width: none;
+    min-height: 54px !important;
+    margin: 0;
+  }
+
+  .order-button img {
+    max-width: 132px;
+    height: 32px !important;
+  }
+}
