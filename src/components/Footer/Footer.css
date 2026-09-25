@@ -119,3 +119,36 @@
     line-height: 1.4;
   }
 }
+
+
+/* iPhone portrait refinement */
+@media (max-width: 430px) and (orientation: portrait) {
+  .footer {
+    margin-top: 40px;
+    padding:
+      32px
+      16px
+      calc(20px + env(safe-area-inset-bottom));
+  }
+
+  .footer-content {
+    gap: 24px;
+  }
+
+  .footer-content-logo img {
+    width: 145px;
+  }
+
+  .footer-content-left p {
+    font-size: 13px;
+  }
+
+  .footer-content-center h2,
+  .footer-content-right h2 {
+    font-size: 18px;
+  }
+
+  .footer-copyright {
+    font-size: 11px;
+  }
+}
