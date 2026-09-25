@@ -1,8 +1,8 @@
 export const cateringMenuSections = [
   {
-    id: "healthy-bites",
-    title: "Healthy Bites",
-    description: "Breakfast, protein pancakes and grab-and-go bites from the current Beyond Natural menu.",
+    id: "morning",
+    title: "Morning",
+    description: "Morning frittatas and protein pancakes from the current Beyond Natural menu.",
     items: [
       {
         id: "broccoli-cauliflower-frittata",
@@ -23,28 +23,35 @@ export const cateringMenuSections = [
         name: "Banana & Dark Chocolate Chips",
         meta: "Protein Pancakes",
         description:
-          "Protein pancake mix or oat flour, banana, egg and dark chocolate chips. Served with maple syrup and fruit.",
+          "Pancake protein mix or oat flour, banana, egg and dark chocolate chips. Served with maple syrup and fruit.",
       },
       {
         id: "blueberry-lemon-pancakes",
         name: "Blueberry Lemon & Cottage Cheese",
         meta: "Protein Pancakes",
         description:
-          "Protein pancake mix or oat flour, egg, cottage cheese, blueberries, lemon and honey. Served with maple syrup and fruit.",
+          "Pancake protein mix or oat flour, egg, cottage cheese, blueberries, lemon and honey. Served with maple syrup and fruit.",
       },
+    ],
+  },
+  {
+    id: "healthy-bites",
+    title: "Healthy Bites",
+    description: "Grab-and-go bites and light snacks from the current Beyond Natural menu.",
+    items: [
       {
         id: "stuffed-dates",
         name: "Stuffed Dates",
         meta: "4 pcs",
         description:
-          "Flavors include walnut, pecans, peanut butter, almond butter, Snickers or assorted.",
+          "Flavors: walnut, pecans, peanut butter, almond butter, Snickers or assorted.",
       },
       {
         id: "energy-balls",
         name: "Energy Balls",
         meta: "4 pcs",
         description:
-          "Flavors include chocolate chip, dark chocolate, oatmeal raisin, Almond Joy or assorted.",
+          "Flavors: chocolate chip, dark chocolate, oatmeal raisin, Almond Joy or assorted.",
       },
       {
         id: "muesli",
@@ -61,7 +68,7 @@ export const cateringMenuSections = [
         id: "drizzled-apples",
         name: "Drizzled Apples",
         description:
-          "Sliced apple with almond butter or peanut butter, honey and choice of crunch.",
+          "Sliced apple drizzled with almond butter or peanut butter, honey and choice of crunch.",
       },
     ],
   },
@@ -136,6 +143,17 @@ export const cateringMenuSections = [
     ],
   },
   {
+    id: "smoothie-add-ons",
+    title: "Smoothie Add-ons",
+    description: "Optional smoothie add-ons. Use quantity for the number of servings that need the add-on.",
+    items: [
+      { id: "hemp-hearts", name: "Hemp Hearts", meta: "1 tbsp", description: "Smoothie add-on." },
+      { id: "collagen-peptides", name: "Collagen Peptides", meta: "1 scoop", description: "Smoothie add-on." },
+      { id: "maca-powder", name: "Maca Powder", meta: "1 tbsp", description: "Smoothie add-on." },
+      { id: "blue-spirulina", name: "Blue Spirulina", meta: "½ tbsp", description: "Smoothie add-on." },
+    ],
+  },
+  {
     id: "juices",
     title: "Fresh Natural Juices",
     description: "Choose the size as its own line item for the catering request.",
@@ -149,10 +167,31 @@ export const cateringMenuSections = [
     ],
   },
   {
-    id: "signature-spoonables",
-    title: "Signature Spoonables",
+    id: "make-your-own-spoonables",
+    title: "Make Your Own Spoonables",
     description:
-      "Signature spoonable bowls are available in Small and Large. Select each size separately.",
+      "Choose a size, then list the exact base, fruit, crunch, drizzle and boost selections in Event Notes.",
+    items: [
+      {
+        id: "myo-spoonable-small",
+        name: "Make Your Own Spoonable",
+        meta: "Small",
+        description:
+          "Includes 1 base, 2 fruits, 1 crunch and 1 drizzle. Bases include overnight oats, chocolate overnight oats, chia pudding, chocolate chia pudding, warm oatmeal, nonfat Greek yogurt or açaí.",
+      },
+      {
+        id: "myo-spoonable-large",
+        name: "Make Your Own Spoonable",
+        meta: "Large",
+        description:
+          "Includes 1 base, 3 fruits, 2 crunches and 1 drizzle. Bases include overnight oats, chocolate overnight oats, chia pudding, chocolate chia pudding, warm oatmeal, nonfat Greek yogurt or açaí.",
+      },
+    ],
+  },
+  {
+    id: "signature-bowls",
+    title: "Signature Bowls",
+    description: "Signature spoonable bowls are available in Small and Large.",
     items: [
       { id: "berry-bliss-s", name: "Berry Bliss", meta: "Small", description: "Strawberries, blueberries, honey and granola." },
       { id: "berry-bliss-l", name: "Berry Bliss", meta: "Large", description: "Strawberries, blueberries, honey and granola." },
@@ -168,6 +207,21 @@ export const cateringMenuSections = [
       { id: "blueberry-muffin-l", name: "Blueberry Muffin", meta: "Large", description: "Blueberries, banana, almond butter and sliced almonds." },
       { id: "tropical-s", name: "Tropical", meta: "Small", description: "Mango, banana, pineapple, coconut and honey." },
       { id: "tropical-l", name: "Tropical", meta: "Large", description: "Mango, banana, pineapple, coconut and honey." },
+    ],
+  },
+  {
+    id: "make-your-own-salad-bowl",
+    title: "Make Your Own Salad/Bowl",
+    description:
+      "Choose greens or grains, toppings, cheese, protein and dressing. Add the exact selections in Event Notes.",
+    items: [
+      {
+        id: "myo-salad-bowl",
+        name: "Make Your Own Salad / Bowl",
+        meta: "Custom",
+        description:
+          "Includes 1 base + 4 toppings + 1 dressing. Greens include romaine, kale, spinach, spring mix, mesclun, green leaf, romaine lettuce and arugula; grains are brown rice or quinoa.",
+      },
     ],
   },
   {
@@ -202,15 +256,15 @@ export const cateringMenuSections = [
     ],
   },
   {
-    id: "green-salads",
-    title: "Green Salads",
+    id: "green-salad",
+    title: "Green Salad",
     description: "Current green salad selections from the menu.",
     items: [
       {
         id: "aegean-garden",
         name: "Aegean Garden",
         description:
-          "Romaine with chicken breast, chickpeas, cucumber, cherry tomatoes, black olives, red onions, feta cheese and tzatziki.",
+          "Romaine lettuce with chicken breast, chickpeas, cucumber, cherry tomatoes, black olives, red onions, feta cheese and tzatziki dressing.",
       },
       {
         id: "sweet-chili-crunch",
@@ -240,7 +294,7 @@ export const cateringMenuSections = [
         id: "southwest-protein",
         name: "Southwest Protein",
         description:
-          "Romaine with turkey meatballs, sweet potatoes, black beans, tomatoes, corn, red onions, avocado and cilantro dressing.",
+          "Romaine lettuce with turkey meatballs, sweet potatoes, black beans, tomatoes, corn, red onions, avocado and cilantro dressing.",
       },
     ],
   },
@@ -253,13 +307,13 @@ export const cateringMenuSections = [
         id: "mediterranean-harvest",
         name: "Mediterranean Harvest",
         description:
-          "Quinoa with chicken breast, chickpeas, tomatoes, red onions, cucumber, black olives, feta cheese and tzatziki.",
+          "Quinoa with chicken breast, chickpeas, tomatoes, red onions, cucumber, black olives, feta cheese and tzatziki dressing.",
       },
       {
         id: "moroccan-gold",
         name: "Moroccan Gold",
         description:
-          "Quinoa with tofu, chickpeas, shredded carrots, raisins, sliced almonds and tahini.",
+          "Quinoa with tofu, chickpeas, shredded carrots, raisins, sliced almonds and tahini dressing.",
       },
       {
         id: "thai-peanut-heat",
@@ -271,36 +325,7 @@ export const cateringMenuSections = [
         id: "pesto-bowl",
         name: "Pesto Bowl",
         description:
-          "Quinoa with chicken breast, tomatoes, zucchini, peppers, feta cheese and pesto.",
-      },
-    ],
-  },
-  {
-    id: "make-your-own",
-    title: "Make Your Own",
-    description:
-      "For custom builds, select the request type and list bases, toppings, protein, dressing, fruits or add-ons in Event Notes.",
-    items: [
-      {
-        id: "myo-salad-bowl",
-        name: "Make Your Own Salad / Bowl",
-        meta: "Custom",
-        description:
-          "Choose greens or grains, regular/premium toppings, cheese, protein and dressing. Add exact selections in Event Notes.",
-      },
-      {
-        id: "myo-spoonable-small",
-        name: "Make Your Own Spoonable",
-        meta: "Small",
-        description:
-          "Includes 1 base, 2 fruits, 1 crunch and 1 drizzle. Add exact selections in Event Notes.",
-      },
-      {
-        id: "myo-spoonable-large",
-        name: "Make Your Own Spoonable",
-        meta: "Large",
-        description:
-          "Includes 1 base, 3 fruits, 2 crunches and 1 drizzle. Add exact selections in Event Notes.",
+          "Quinoa with chicken breast, tomatoes, zucchini, peppers, feta cheese and pesto dressing.",
       },
     ],
   },
