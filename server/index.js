@@ -12,8 +12,32 @@ const frontendOrigin =
 
 const allowedOrigins = frontendOrigin
   .split(",")
-  .map((value) => value.trim())
+  .map((value) => value.trim().replace(/\/$/, ""))
   .filter(Boolean);
+
+const isAllowedOrigin = (origin) => {
+  if (!origin) return true;
+
+  const normalizedOrigin = origin.replace(/\/$/, "");
+
+  if (allowedOrigins.includes(normalizedOrigin)) return true;
+
+  try {
+    const url = new URL(normalizedOrigin);
+    const hostname = url.hostname.toLowerCase();
+
+    return (
+      url.protocol === "https:" &&
+      (
+        hostname.endsWith(".hostingersite.com") ||
+        hostname === "beyondnaturalandco.com" ||
+        hostname === "www.beyondnaturalandco.com"
+      )
+    );
+  } catch {
+    return false;
+  }
+};
 
 const packages = {
   "package-5": {
@@ -38,13 +62,15 @@ app.use(express.json({ limit: "20kb" }));
 app.use(
   cors({
     origin(origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (isAllowedOrigin(origin)) {
         callback(null, true);
         return;
       }
       callback(new Error("Origin not allowed"));
     },
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type"],
+    optionsSuccessStatus: 204,
   })
 );
 
