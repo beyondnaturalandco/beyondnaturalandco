@@ -1,0 +1,121 @@
+.quote-admin-page {
+  min-height: 80vh;
+  padding: 60px 18px;
+  background: #f5f6ee;
+}
+
+.quote-admin-card {
+  width: min(720px, 100%);
+  margin: 0 auto;
+  padding: 38px;
+  border-radius: 26px;
+  background: #fff;
+  border: 1px solid #e3e4d8;
+}
+
+.quote-admin-eyebrow {
+  color: #949b4b;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.quote-admin-card h1 {
+  margin: 8px 0 10px;
+  font-size: 38px;
+}
+
+.quote-admin-intro {
+  margin-bottom: 26px;
+  color: #666;
+  line-height: 1.55;
+}
+
+.quote-admin-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.quote-admin-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.quote-admin-card input,
+.quote-admin-card textarea,
+.quote-admin-card select {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #deded5;
+  border-radius: 12px;
+  background: #fbfbf8;
+  font-size: 16px;
+}
+
+.quote-admin-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.quote-admin-card button {
+  min-height: 50px;
+  border: 0;
+  border-radius: 999px;
+  background: #949b4b;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.quote-admin-error {
+  padding: 12px 14px;
+  border: 1px solid #e5b9b9;
+  border-radius: 12px;
+  background: #fff6f6;
+  color: #8a2d2d;
+}
+
+.quote-admin-result {
+  margin-top: 22px;
+  padding: 18px;
+  border-radius: 18px;
+  background: #f3f4e8;
+}
+
+.quote-admin-result span {
+  display: block;
+  margin-bottom: 8px;
+  color: #6e742f;
+  font-weight: 800;
+}
+
+.quote-admin-result input {
+  margin-bottom: 10px;
+}
+
+.quote-admin-result button {
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .quote-admin-page {
+    padding: 28px 12px 48px;
+  }
+
+  .quote-admin-card {
+    padding: 24px 18px;
+  }
+
+  .quote-admin-card h1 {
+    font-size: 30px;
+  }
+
+  .quote-admin-grid {
+    grid-template-columns: 1fr;
+  }
+}
