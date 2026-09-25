@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { food_list } from "../../assets/assets";
+import { cateringMenuSections } from "../../data/cateringMenu";
 import "./Catering.css";
 
 const businessPhone = "+19144264266";
@@ -19,17 +19,29 @@ const Catering = () => {
   });
   const [message, setMessage] = useState("");
 
+  const flatMenu = useMemo(
+    () =>
+      cateringMenuSections.flatMap((section) =>
+        section.items.map((item) => ({
+          ...item,
+          category: section.title,
+        }))
+      ),
+    []
+  );
+
   const selectedItems = useMemo(
     () =>
-      food_list
+      flatMenu
         .map((item) => ({
-          id: item._id,
+          id: item.id,
           name: item.name,
+          meta: item.meta || "",
           category: item.category,
-          quantity: Number(quantities[item._id] || 0),
+          quantity: Number(quantities[item.id] || 0),
         }))
         .filter((item) => item.quantity > 0),
-    [quantities]
+    [flatMenu, quantities]
   );
 
   const totalUnits = selectedItems.reduce((sum, item) => sum + item.quantity, 0);
@@ -71,7 +83,10 @@ const Catering = () => {
     }
 
     const productLines = selectedItems
-      .map((item) => `• ${item.quantity} × ${item.name}`)
+      .map((item) => {
+        const label = item.meta ? `${item.name} (${item.meta})` : item.name;
+        return `• ${item.quantity} × ${label} — ${item.category}`;
+      })
       .join("\n");
 
     const body = [
@@ -107,8 +122,8 @@ const Catering = () => {
         <p className="catering-eyebrow">BEYOND NATURAL & CO.</p>
         <h1>CATERING</h1>
         <p className="catering-intro">
-          Build your catering request, choose quantities and event details, and we’ll
-          prepare a custom quote for you.
+          Build your catering request with items from our current menu. Choose quantities
+          and event details, and we’ll prepare a custom quote for you.
         </p>
       </section>
 
@@ -117,44 +132,69 @@ const Catering = () => {
           <p>BUILD YOUR ORDER</p>
           <h2 id="custom-catering-title">CUSTOM CATERING</h2>
           <span className="catering-test-note">
-            No standard package price — your final total is quoted based on your request.
+            No standard catering price — your final total is quoted based on your request.
           </span>
         </div>
 
         <div className="custom-catering-layout">
-          <div className="custom-products">
-            {food_list.map((item) => {
-              const quantity = Number(quantities[item._id] || 0);
-
-              return (
-                <article className="custom-product" key={item._id}>
-                  <div className="custom-product__content">
-                    <span>{item.category}</span>
-                    <h3>{item.name}</h3>
-                    <p>{item.description}</p>
+          <div className="custom-menu-groups">
+            {cateringMenuSections.map((section, sectionIndex) => (
+              <details
+                className="custom-menu-category"
+                key={section.id}
+                open={sectionIndex < 2}
+              >
+                <summary>
+                  <div>
+                    <span>{section.items.length} OPTIONS</span>
+                    <h3>{section.title}</h3>
+                    <p>{section.description}</p>
                   </div>
+                  <strong className="category-toggle">+</strong>
+                </summary>
 
-                  <div className="quantity-control" aria-label={`Quantity for ${item.name}`}>
-                    <button
-                      type="button"
-                      onClick={() => changeQuantity(item._id, -1)}
-                      disabled={quantity === 0}
-                      aria-label={`Remove one ${item.name}`}
-                    >
-                      −
-                    </button>
-                    <strong>{quantity}</strong>
-                    <button
-                      type="button"
-                      onClick={() => changeQuantity(item._id, 1)}
-                      aria-label={`Add one ${item.name}`}
-                    >
-                      +
-                    </button>
-                  </div>
-                </article>
-              );
-            })}
+                <div className="custom-products">
+                  {section.items.map((item) => {
+                    const quantity = Number(quantities[item.id] || 0);
+
+                    return (
+                      <article className="custom-product" key={item.id}>
+                        <div className="custom-product__content">
+                          <div className="custom-product__meta-row">
+                            <span>{section.title}</span>
+                            {item.meta && <em>{item.meta}</em>}
+                          </div>
+                          <h3>{item.name}</h3>
+                          <p>{item.description}</p>
+                        </div>
+
+                        <div
+                          className="quantity-control"
+                          aria-label={`Quantity for ${item.name}`}
+                        >
+                          <button
+                            type="button"
+                            onClick={() => changeQuantity(item.id, -1)}
+                            disabled={quantity === 0}
+                            aria-label={`Remove one ${item.name}`}
+                          >
+                            −
+                          </button>
+                          <strong>{quantity}</strong>
+                          <button
+                            type="button"
+                            onClick={() => changeQuantity(item.id, 1)}
+                            aria-label={`Add one ${item.name}`}
+                          >
+                            +
+                          </button>
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
+              </details>
+            ))}
           </div>
 
           <aside className="quote-summary">
@@ -165,14 +205,17 @@ const Catering = () => {
               <div className="quote-summary__items">
                 {selectedItems.map((item) => (
                   <div key={item.id}>
-                    <span>{item.name}</span>
+                    <span>
+                      {item.name}
+                      {item.meta ? ` · ${item.meta}` : ""}
+                    </span>
                     <strong>× {item.quantity}</strong>
                   </div>
                 ))}
               </div>
             ) : (
               <p className="quote-summary__empty">
-                Add products to start building your catering request.
+                Open a category and add products to start building your catering request.
               </p>
             )}
           </aside>
@@ -256,7 +299,7 @@ const Catering = () => {
               rows="4"
               value={form.notes}
               onChange={updateField}
-              placeholder="Dietary requests, event timing, setup notes, or anything else we should know."
+              placeholder="Dietary requests, make-your-own selections, smoothie add-ons, event timing, setup notes, or anything else we should know."
             />
           </label>
 
