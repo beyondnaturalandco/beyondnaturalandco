@@ -3,15 +3,15 @@ import "./Header.css";
 
 const slides = [
   {
-    src: `${import.meta.env.BASE_URL}intro.webp`,
+    src: `${import.meta.env.BASE_URL}intro.png`,
     alt: "Beyond Natural & Co. opening announcement with featured food",
   },
   {
-    src: `${import.meta.env.BASE_URL}sweet-chili-crunch.webp`,
+    src: `${import.meta.env.BASE_URL}sweet-chili-crunch.png`,
     alt: "Sweet Chili Crunch salad from Beyond Natural & Co.",
   },
   {
-    src: `${import.meta.env.BASE_URL}ginger-soy-salmon.webp`,
+    src: `${import.meta.env.BASE_URL}ginger-soy-salmon.png`,
     alt: "Ginger Soy Salmon grain bowl from Beyond Natural & Co.",
   },
 ];
