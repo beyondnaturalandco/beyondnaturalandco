@@ -132,8 +132,24 @@ app.post("/api/create-checkout", async (req, res) => {
         response: responseText.slice(0, 500),
       });
 
+      const cloverMessage =
+        cloverData?.message ||
+        cloverData?.error?.message ||
+        cloverData?.error ||
+        cloverData?.detail ||
+        cloverData?.description ||
+        "";
+
+      const safeMessage =
+        typeof cloverMessage === "string"
+          ? cloverMessage.replace(/[\r\n\t]+/g, " ").slice(0, 180)
+          : "";
+
       return res.status(502).json({
-        error: "Clover could not create the checkout. Please try again.",
+        error: safeMessage
+          ? `Clover error ${cloverResponse.status}: ${safeMessage}`
+          : `Clover error ${cloverResponse.status}: checkout could not be created.`,
+        cloverStatus: cloverResponse.status,
       });
     }
 
