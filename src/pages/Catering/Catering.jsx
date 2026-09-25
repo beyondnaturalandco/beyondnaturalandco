@@ -45,7 +45,11 @@ const Catering = () => {
   });
 
   const apiBaseUrl = useMemo(
-    () => (import.meta.env.VITE_CLOVER_API_URL || "").replace(/\/$/, ""),
+    () =>
+      (
+        import.meta.env.VITE_CLOVER_API_URL ||
+        "https://darkgrey-sheep-182422.hostingersite.com"
+      ).replace(/\/$/, ""),
     []
   );
 
