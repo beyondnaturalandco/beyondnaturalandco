@@ -663,3 +663,114 @@
     font-size: 12px;
   }
 }
+
+
+/* =========================================
+   IPHONE PORTRAIT CHECKOUT
+   ========================================= */
+@media (max-width: 430px) and (orientation: portrait) {
+  .catering-hero {
+    padding: 38px 14px 30px;
+  }
+
+  .catering-hero h1 {
+    font-size: clamp(42px, 15vw, 58px);
+  }
+
+  .catering-intro {
+    max-width: 330px;
+    font-size: 14px;
+  }
+
+  .catering-shop {
+    padding: 8px 14px 40px;
+  }
+
+  .catering-section-heading h2 {
+    font-size: 27px;
+  }
+
+  .catering-card {
+    padding: 20px;
+  }
+
+  .catering-card__price {
+    font-size: 30px;
+  }
+
+  .catering-payment {
+    width: calc(100% - 28px);
+    padding: 22px 18px;
+  }
+
+  .catering-payment h2 {
+    font-size: 27px;
+  }
+
+  .catering-setup-notice {
+    width: calc(100% - 28px);
+  }
+
+  .catering-modal-backdrop {
+    padding: 0;
+  }
+
+  .catering-modal {
+    width: 100%;
+    max-height: 94svh;
+    border-radius: 24px 24px 0 0;
+    padding:
+      18px
+      16px
+      calc(18px + env(safe-area-inset-bottom));
+  }
+
+  .catering-modal__header {
+    position: sticky;
+    top: -18px;
+    z-index: 2;
+    margin: -18px -16px 0;
+    padding: 18px 16px 12px;
+    background: #fff;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .catering-modal__header h2 {
+    font-size: 25px;
+  }
+
+  .catering-modal__header p {
+    font-size: 10px;
+  }
+
+  .catering-modal__close {
+    width: 42px;
+    height: 42px;
+  }
+
+  .catering-order-summary {
+    margin-top: 14px;
+  }
+
+  .catering-order-summary div {
+    padding: 10px 0;
+  }
+
+  .catering-customer-form {
+    gap: 12px;
+  }
+
+  .catering-customer-form input {
+    min-height: 50px;
+    border-radius: 14px;
+  }
+
+  .catering-modal__pay {
+    min-height: 52px;
+    font-size: 13px;
+  }
+
+  .catering-secure-note {
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+}
