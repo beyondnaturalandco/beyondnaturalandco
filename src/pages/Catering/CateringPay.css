@@ -1,0 +1,140 @@
+.quote-pay-page {
+  min-height: 72vh;
+  padding: 70px 18px;
+  background: #f6f7ef;
+}
+
+.quote-pay-card {
+  width: min(720px, 100%);
+  margin: 0 auto;
+  padding: 42px;
+  border: 1px solid #e2e4d5;
+  border-radius: 28px;
+  background: #fff;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.06);
+}
+
+.quote-pay-eyebrow {
+  margin-bottom: 10px;
+  color: #949b4b;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.quote-pay-card h1 {
+  margin-bottom: 30px;
+  font-size: clamp(34px, 6vw, 56px);
+  line-height: 0.98;
+}
+
+.quote-pay-details {
+  border-top: 1px solid #ecece6;
+  border-bottom: 1px solid #ecece6;
+}
+
+.quote-pay-details div {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 0;
+}
+
+.quote-pay-details div + div {
+  border-top: 1px solid #f1f1ed;
+}
+
+.quote-pay-details span,
+.quote-pay-description span,
+.quote-pay-total span {
+  color: #6c6c65;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.quote-pay-details strong {
+  text-align: right;
+}
+
+.quote-pay-description {
+  padding: 24px 0;
+}
+
+.quote-pay-description p {
+  margin-top: 8px;
+  color: #444;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.quote-pay-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-bottom: 24px;
+  padding: 22px;
+  border-radius: 18px;
+  background: #f2f3e5;
+}
+
+.quote-pay-total strong {
+  font-size: 36px;
+  color: #70783e;
+}
+
+.quote-pay-button {
+  width: 100%;
+  min-height: 54px;
+  border: 0;
+  border-radius: 999px;
+  background: #949b4b;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.quote-pay-button:disabled {
+  opacity: 0.65;
+}
+
+.quote-pay-note {
+  margin-top: 14px;
+  color: #777;
+  font-size: 12px;
+  text-align: center;
+}
+
+.quote-pay-error {
+  margin: 16px 0;
+  padding: 14px;
+  border: 1px solid #e5b9b9;
+  border-radius: 12px;
+  background: #fff6f6;
+  color: #8a2d2d;
+}
+
+@media (max-width: 600px) {
+  .quote-pay-page {
+    padding: 30px 12px 50px;
+  }
+
+  .quote-pay-card {
+    padding: 26px 18px;
+    border-radius: 22px;
+  }
+
+  .quote-pay-details div {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .quote-pay-details strong {
+    text-align: left;
+  }
+
+  .quote-pay-total strong {
+    font-size: 32px;
+  }
+}
