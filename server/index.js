@@ -134,7 +134,7 @@ app.post("/api/create-checkout", async (req, res) => {
     };
 
     const cloverResponse = await fetch(
-      "https://scl.clover.com/invoicingcheckoutservice/v1/checkouts",
+      "https://api.clover.com/invoicingcheckoutservice/v1/checkouts",
       {
         method: "POST",
         headers: {
