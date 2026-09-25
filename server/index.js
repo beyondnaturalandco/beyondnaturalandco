@@ -183,6 +183,50 @@ app.get("/health", (_req, res) => {
   });
 });
 
+app.post("/api/breakfast-social/checkout", async (req, res) => {
+  try {
+    if (!merchantId || !privateToken) {
+      return res.status(503).json({
+        error: "Clover payment service is not configured.",
+      });
+    }
+
+    const customer = req.body?.customer || {};
+    const firstName = String(customer.firstName || "").trim();
+    const lastName = String(customer.lastName || "").trim();
+    const email = String(customer.email || "").trim().toLowerCase();
+
+    if (!firstName || !lastName || !email.includes("@")) {
+      return res.status(400).json({
+        error: "First name, last name and a valid email are required.",
+      });
+    }
+
+    const successUrl = `${allowedOrigins[0]}/#/catering?payment=success`;
+    const failureUrl = `${allowedOrigins[0]}/#/catering?payment=failure`;
+
+    const result = await createCloverCheckout({
+      lineName: "Breakfast Social",
+      note: "Beyond Natural & Co. Breakfast Social catering package",
+      amountCents: 25000,
+      customer: {
+        firstName,
+        lastName,
+        email,
+      },
+      successUrl,
+      failureUrl,
+    });
+
+    return res.json(result);
+  } catch (error) {
+    console.error("Breakfast Social checkout failed", error);
+    return res.status(error.status || 500).json({
+      error: error.message || "Unable to create checkout.",
+    });
+  }
+});
+
 app.post("/api/admin/create-quote", (req, res) => {
   try {
     if (!quoteAdminKey) {
