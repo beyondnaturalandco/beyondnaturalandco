@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import "./Catering.css";
 
 const cateringPackages = [
@@ -37,23 +37,75 @@ const usd = new Intl.NumberFormat("en-US", {
 const Catering = () => {
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [paymentStatus, setPaymentStatus] = useState("idle");
+  const [paymentError, setPaymentError] = useState("");
+  const [customer, setCustomer] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
+
+  const apiBaseUrl = useMemo(
+    () => (import.meta.env.VITE_CLOVER_API_URL || "").replace(/\/$/, ""),
+    []
+  );
 
   const openCheckout = (pkg) => {
     setSelectedPackage(pkg);
     setPaymentStatus("review");
+    setPaymentError("");
   };
 
   const closeCheckout = () => {
+    if (paymentStatus === "processing") return;
     setSelectedPackage(null);
     setPaymentStatus("idle");
+    setPaymentError("");
   };
 
-  const simulatePayment = () => {
-    setPaymentStatus("processing");
+  const updateCustomer = (event) => {
+    const { name, value } = event.target;
+    setCustomer((current) => ({ ...current, [name]: value }));
+  };
 
-    window.setTimeout(() => {
-      setPaymentStatus("success");
-    }, 900);
+  const startRealPayment = async (event) => {
+    event.preventDefault();
+    if (!selectedPackage) return;
+
+    if (!apiBaseUrl) {
+      setPaymentError(
+        "The secure Clover payment server is not configured yet. Please contact Beyond Natural & Co."
+      );
+      return;
+    }
+
+    setPaymentStatus("processing");
+    setPaymentError("");
+
+    try {
+      const response = await fetch(`${apiBaseUrl}/api/create-checkout`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          packageId: selectedPackage.id,
+          customer,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data?.checkoutUrl) {
+        throw new Error(data?.error || "Unable to start Clover checkout.");
+      }
+
+      window.location.assign(data.checkoutUrl);
+    } catch (error) {
+      setPaymentStatus("review");
+      setPaymentError(
+        error?.message || "Unable to connect to Clover. Please try again."
+      );
+    }
   };
 
   return (
@@ -68,10 +120,10 @@ const Catering = () => {
 
       <section className="catering-shop" aria-labelledby="catering-shop-title">
         <div className="catering-section-heading">
-          <p>TEST PACKAGES</p>
+          <p>CATERING PACKAGES</p>
           <h2 id="catering-shop-title">CHOOSE YOUR CATERING PACKAGE</h2>
           <span className="catering-test-note">
-            TEST MODE — these prices are temporary and no real payment will be charged.
+            Temporary package pricing — final menu details can be adjusted with the client.
           </span>
         </div>
 
@@ -90,7 +142,7 @@ const Catering = () => {
                 type="button"
                 onClick={() => openCheckout(pkg)}
               >
-                TEST CHECKOUT
+                SECURE CHECKOUT
               </button>
             </article>
           ))}
@@ -102,13 +154,12 @@ const Catering = () => {
           <p className="catering-payment__label">SECURE PAYMENT</p>
           <h2>CLOVER CHECKOUT</h2>
           <p>
-            The production version will send the selected package to Clover Hosted
-            Checkout. This temporary version only simulates the checkout flow so the
-            layout and customer experience can be tested safely.
+            Payments are completed on Clover's secure Hosted Checkout. Beyond Natural
+            & Co. does not store card numbers on this website.
           </p>
         </div>
 
-        <div className="catering-payment__methods" aria-label="Planned payment methods">
+        <div className="catering-payment__methods" aria-label="Accepted payment methods">
           <span>VISA</span>
           <span>MASTERCARD</span>
           <span>AMEX</span>
@@ -117,10 +168,10 @@ const Catering = () => {
       </section>
 
       <section className="catering-setup-notice">
-        <strong>TEST MODE</strong>
+        <strong>SECURE CHECKOUT</strong>
         <span>
-          No card details are requested and no charge is created. The next step is to
-          connect this checkout to the secure Clover backend.
+          You will be redirected to Clover to complete payment. The selected package
+          price is validated securely on our server before checkout is created.
         </span>
       </section>
 
@@ -132,67 +183,94 @@ const Catering = () => {
             aria-modal="true"
             aria-labelledby="catering-checkout-title"
           >
-            {paymentStatus !== "success" ? (
-              <>
-                <div className="catering-modal__header">
-                  <div>
-                    <p>CHECKOUT PREVIEW</p>
-                    <h2 id="catering-checkout-title">Review your order</h2>
-                  </div>
-                  <button
-                    type="button"
-                    className="catering-modal__close"
-                    onClick={closeCheckout}
-                    aria-label="Close checkout"
-                  >
-                    ×
-                  </button>
-                </div>
-
-                <div className="catering-order-summary">
-                  <div>
-                    <span>Package</span>
-                    <strong>{selectedPackage.title}</strong>
-                  </div>
-                  <div>
-                    <span>Guests</span>
-                    <strong>{selectedPackage.people}</strong>
-                  </div>
-                  <div>
-                    <span>Total</span>
-                    <strong>{usd.format(selectedPackage.price)}</strong>
-                  </div>
-                </div>
-
-                <div className="catering-test-alert">
-                  TEST MODE — clicking below will simulate an approved payment. No
-                  card will be charged.
-                </div>
-
-                <button
-                  type="button"
-                  className="catering-modal__pay"
-                  onClick={simulatePayment}
-                  disabled={paymentStatus === "processing"}
-                >
-                  {paymentStatus === "processing"
-                    ? "PROCESSING..."
-                    : `SIMULATE PAYMENT — ${usd.format(selectedPackage.price)}`}
-                </button>
-              </>
-            ) : (
-              <div className="catering-success">
-                <div className="catering-success__icon">✓</div>
-                <p>TEST PAYMENT APPROVED</p>
-                <h2>Order confirmed</h2>
-                <span>
-                  {selectedPackage.title} · {usd.format(selectedPackage.price)}
-                </span>
-                <button type="button" onClick={closeCheckout}>
-                  CLOSE
-                </button>
+            <div className="catering-modal__header">
+              <div>
+                <p>SECURE CLOVER CHECKOUT</p>
+                <h2 id="catering-checkout-title">Review your order</h2>
               </div>
-            )}
+              <button
+                type="button"
+                className="catering-modal__close"
+                onClick={closeCheckout}
+                aria-label="Close checkout"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="catering-order-summary">
+              <div>
+                <span>Package</span>
+                <strong>{selectedPackage.title}</strong>
+              </div>
+              <div>
+                <span>Guests</span>
+                <strong>{selectedPackage.people}</strong>
+              </div>
+              <div>
+                <span>Total</span>
+                <strong>{usd.format(selectedPackage.price)}</strong>
+              </div>
+            </div>
+
+            <form className="catering-customer-form" onSubmit={startRealPayment}>
+              <div className="catering-form-row">
+                <label>
+                  First name
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={customer.firstName}
+                    onChange={updateCustomer}
+                    autoComplete="given-name"
+                    required
+                  />
+                </label>
+                <label>
+                  Last name
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={customer.lastName}
+                    onChange={updateCustomer}
+                    autoComplete="family-name"
+                    required
+                  />
+                </label>
+              </div>
+
+              <label>
+                Email
+                <input
+                  type="email"
+                  name="email"
+                  value={customer.email}
+                  onChange={updateCustomer}
+                  autoComplete="email"
+                  required
+                />
+              </label>
+
+              {paymentError && (
+                <div className="catering-payment-error" role="alert">
+                  {paymentError}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                className="catering-modal__pay"
+                disabled={paymentStatus === "processing"}
+              >
+                {paymentStatus === "processing"
+                  ? "CONNECTING TO CLOVER..."
+                  : `PAY SECURELY — ${usd.format(selectedPackage.price)}`}
+              </button>
+            </form>
+
+            <p className="catering-secure-note">
+              Card information is entered directly on Clover's secure payment page.
+            </p>
           </section>
         </div>
       )}
