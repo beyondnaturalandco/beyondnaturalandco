@@ -1,115 +1,104 @@
 import { useMemo, useState } from "react";
+import { food_list } from "../../assets/assets";
 import "./Catering.css";
 
-const cateringPackages = [
-  {
-    id: "package-5",
-    people: 5,
-    price: 400,
-    title: "CATERING FOR 5",
-    description:
-      "A simple catering package for small meetings, team lunches or intimate gatherings.",
-  },
-  {
-    id: "package-10",
-    people: 10,
-    price: 700,
-    title: "CATERING FOR 10",
-    description:
-      "A flexible catering package for office meetings, celebrations and small events.",
-  },
-  {
-    id: "package-20",
-    people: 20,
-    price: 1200,
-    title: "CATERING FOR 20",
-    description:
-      "A larger catering package for team events, private gatherings and group celebrations.",
-  },
-];
-
-const usd = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  maximumFractionDigits: 0,
-});
+const businessPhone = "+19144264266";
 
 const Catering = () => {
-  const [selectedPackage, setSelectedPackage] = useState(null);
-  const [paymentStatus, setPaymentStatus] = useState("idle");
-  const [paymentError, setPaymentError] = useState("");
-  const [customer, setCustomer] = useState({
+  const [quantities, setQuantities] = useState({});
+  const [form, setForm] = useState({
     firstName: "",
     lastName: "",
     email: "",
+    phone: "",
+    eventDate: "",
+    guestCount: "",
+    fulfillment: "Pickup",
+    address: "",
+    notes: "",
   });
+  const [message, setMessage] = useState("");
 
-  const apiBaseUrl = useMemo(
+  const selectedItems = useMemo(
     () =>
-      (
-        import.meta.env.VITE_CLOVER_API_URL ||
-        "https://darkgrey-sheep-182422.hostingersite.com"
-      ).replace(/\/$/, ""),
-    []
+      food_list
+        .map((item) => ({
+          id: item._id,
+          name: item.name,
+          category: item.category,
+          quantity: Number(quantities[item._id] || 0),
+        }))
+        .filter((item) => item.quantity > 0),
+    [quantities]
   );
 
-  const openCheckout = (pkg) => {
-    setSelectedPackage(pkg);
-    setPaymentStatus("review");
-    setPaymentError("");
+  const totalUnits = selectedItems.reduce((sum, item) => sum + item.quantity, 0);
+
+  const changeQuantity = (itemId, delta) => {
+    setQuantities((current) => {
+      const next = Math.max(0, Number(current[itemId] || 0) + delta);
+      return { ...current, [itemId]: next };
+    });
   };
 
-  const closeCheckout = () => {
-    if (paymentStatus === "processing") return;
-    setSelectedPackage(null);
-    setPaymentStatus("idle");
-    setPaymentError("");
-  };
-
-  const updateCustomer = (event) => {
+  const updateField = (event) => {
     const { name, value } = event.target;
-    setCustomer((current) => ({ ...current, [name]: value }));
+    setForm((current) => ({ ...current, [name]: value }));
   };
 
-  const startRealPayment = async (event) => {
+  const requestQuote = (event) => {
     event.preventDefault();
-    if (!selectedPackage) return;
+    setMessage("");
 
-    if (!apiBaseUrl) {
-      setPaymentError(
-        "The secure Clover payment server is not configured yet. Please contact Beyond Natural & Co."
-      );
+    if (!selectedItems.length) {
+      setMessage("Please select at least one catering item.");
       return;
     }
 
-    setPaymentStatus("processing");
-    setPaymentError("");
-
-    try {
-      const response = await fetch(`${apiBaseUrl}/api/create-checkout`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          packageId: selectedPackage.id,
-          customer,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok || !data?.checkoutUrl) {
-        throw new Error(data?.error || "Unable to start Clover checkout.");
-      }
-
-      window.location.assign(data.checkoutUrl);
-    } catch (error) {
-      setPaymentStatus("review");
-      setPaymentError(
-        error?.message || "Unable to connect to Clover. Please try again."
-      );
+    if (!form.firstName || !form.lastName || !form.email || !form.phone) {
+      setMessage("Please complete your contact information.");
+      return;
     }
+
+    if (!form.eventDate || !form.guestCount) {
+      setMessage("Please add the event date and guest count.");
+      return;
+    }
+
+    if (form.fulfillment === "Delivery" && !form.address.trim()) {
+      setMessage("Please add the delivery address.");
+      return;
+    }
+
+    const productLines = selectedItems
+      .map((item) => `• ${item.quantity} × ${item.name}`)
+      .join("\n");
+
+    const body = [
+      "BEYOND NATURAL & CO. — CATERING QUOTE REQUEST",
+      "",
+      `Customer: ${form.firstName} ${form.lastName}`,
+      `Email: ${form.email}`,
+      `Phone: ${form.phone}`,
+      `Event date: ${form.eventDate}`,
+      `Guests: ${form.guestCount}`,
+      `Pickup / Delivery: ${form.fulfillment}`,
+      form.fulfillment === "Delivery" ? `Address: ${form.address}` : "",
+      "",
+      "Requested items:",
+      productLines,
+      `Total units: ${totalUnits}`,
+      "",
+      form.notes ? `Notes: ${form.notes}` : "",
+      "",
+      "Please send me a custom quote.",
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    const isAppleMobile = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const separator = isAppleMobile ? "&" : "?";
+    window.location.href = `sms:${businessPhone}${separator}body=${encodeURIComponent(body)}`;
   };
 
   return (
@@ -118,166 +107,201 @@ const Catering = () => {
         <p className="catering-eyebrow">BEYOND NATURAL & CO.</p>
         <h1>CATERING</h1>
         <p className="catering-intro">
-          Fresh, balanced catering for meetings, celebrations and special events.
+          Build your catering request, choose quantities and event details, and we’ll
+          prepare a custom quote for you.
         </p>
       </section>
 
-      <section className="catering-shop" aria-labelledby="catering-shop-title">
+      <section className="custom-catering" aria-labelledby="custom-catering-title">
         <div className="catering-section-heading">
-          <p>CATERING PACKAGES</p>
-          <h2 id="catering-shop-title">CHOOSE YOUR CATERING PACKAGE</h2>
+          <p>BUILD YOUR ORDER</p>
+          <h2 id="custom-catering-title">CUSTOM CATERING</h2>
           <span className="catering-test-note">
-            Temporary package pricing — final menu details can be adjusted with the client.
+            No standard package price — your final total is quoted based on your request.
           </span>
         </div>
 
-        <div className="catering-grid">
-          {cateringPackages.map((pkg) => (
-            <article className="catering-card" key={pkg.id}>
-              <div className="catering-card__content">
-                <p className="catering-card__people">{pkg.people} PEOPLE</p>
-                <h3>{pkg.title}</h3>
-                <p>{pkg.description}</p>
-                <strong className="catering-card__price">{usd.format(pkg.price)}</strong>
-              </div>
+        <div className="custom-catering-layout">
+          <div className="custom-products">
+            {food_list.map((item) => {
+              const quantity = Number(quantities[item._id] || 0);
 
-              <button
-                className="catering-checkout-button"
-                type="button"
-                onClick={() => openCheckout(pkg)}
-              >
-                SECURE CHECKOUT
-              </button>
-            </article>
-          ))}
+              return (
+                <article className="custom-product" key={item._id}>
+                  <div className="custom-product__content">
+                    <span>{item.category}</span>
+                    <h3>{item.name}</h3>
+                    <p>{item.description}</p>
+                  </div>
+
+                  <div className="quantity-control" aria-label={`Quantity for ${item.name}`}>
+                    <button
+                      type="button"
+                      onClick={() => changeQuantity(item._id, -1)}
+                      disabled={quantity === 0}
+                      aria-label={`Remove one ${item.name}`}
+                    >
+                      −
+                    </button>
+                    <strong>{quantity}</strong>
+                    <button
+                      type="button"
+                      onClick={() => changeQuantity(item._id, 1)}
+                      aria-label={`Add one ${item.name}`}
+                    >
+                      +
+                    </button>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          <aside className="quote-summary">
+            <p className="quote-summary__eyebrow">YOUR REQUEST</p>
+            <h2>{totalUnits} ITEM{totalUnits === 1 ? "" : "S"}</h2>
+
+            {selectedItems.length ? (
+              <div className="quote-summary__items">
+                {selectedItems.map((item) => (
+                  <div key={item.id}>
+                    <span>{item.name}</span>
+                    <strong>× {item.quantity}</strong>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="quote-summary__empty">
+                Add products to start building your catering request.
+              </p>
+            )}
+          </aside>
         </div>
+
+        <form className="quote-request-form" onSubmit={requestQuote}>
+          <div className="quote-request-heading">
+            <p>EVENT DETAILS</p>
+            <h2>Tell us about your event</h2>
+          </div>
+
+          <div className="quote-form-grid">
+            <label>
+              First name
+              <input name="firstName" value={form.firstName} onChange={updateField} required />
+            </label>
+            <label>
+              Last name
+              <input name="lastName" value={form.lastName} onChange={updateField} required />
+            </label>
+            <label>
+              Email
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={updateField}
+                required
+              />
+            </label>
+            <label>
+              Phone
+              <input
+                type="tel"
+                name="phone"
+                value={form.phone}
+                onChange={updateField}
+                required
+              />
+            </label>
+            <label>
+              Event date
+              <input
+                type="date"
+                name="eventDate"
+                value={form.eventDate}
+                onChange={updateField}
+                required
+              />
+            </label>
+            <label>
+              Guest count
+              <input
+                type="number"
+                min="1"
+                name="guestCount"
+                value={form.guestCount}
+                onChange={updateField}
+                required
+              />
+            </label>
+            <label>
+              Pickup / Delivery
+              <select name="fulfillment" value={form.fulfillment} onChange={updateField}>
+                <option>Pickup</option>
+                <option>Delivery</option>
+              </select>
+            </label>
+            {form.fulfillment === "Delivery" && (
+              <label>
+                Delivery address
+                <input name="address" value={form.address} onChange={updateField} required />
+              </label>
+            )}
+          </div>
+
+          <label className="quote-notes">
+            Notes / special requests
+            <textarea
+              name="notes"
+              rows="4"
+              value={form.notes}
+              onChange={updateField}
+              placeholder="Dietary requests, event timing, setup notes, or anything else we should know."
+            />
+          </label>
+
+          {message && (
+            <div className="catering-payment-error" role="alert">
+              {message}
+            </div>
+          )}
+
+          <div className="quote-request-actions">
+            <button className="catering-checkout-button" type="submit">
+              REQUEST A QUOTE
+            </button>
+            <a href={`tel:${businessPhone}`} className="quote-call-button">
+              CALL US
+            </a>
+          </div>
+        </form>
       </section>
 
-      <section className="catering-payment">
+      <section className="agreed-quote">
         <div>
-          <p className="catering-payment__label">SECURE PAYMENT</p>
-          <h2>CLOVER CHECKOUT</h2>
+          <p className="catering-payment__label">ALREADY HAVE A QUOTE?</p>
+          <h2>PAY YOUR AGREED PRICE</h2>
           <p>
-            Payments are completed on Clover's secure Hosted Checkout. Beyond Natural
-            & Co. does not store card numbers on this website.
+            Once Beyond Natural approves your catering request, we’ll send you a secure
+            payment link with the exact agreed amount. You do not need to enter or edit
+            the price yourself.
           </p>
         </div>
 
-        <div className="catering-payment__methods" aria-label="Accepted payment methods">
-          <span>VISA</span>
-          <span>MASTERCARD</span>
-          <span>AMEX</span>
-          <span>APPLE PAY</span>
+        <div className="agreed-quote__steps">
+          <span>1. REQUEST</span>
+          <span>2. APPROVE</span>
+          <span>3. PAY WITH CLOVER</span>
         </div>
       </section>
 
       <section className="catering-setup-notice">
-        <strong>SECURE CHECKOUT</strong>
+        <strong>SECURE PAYMENT</strong>
         <span>
-          You will be redirected to Clover to complete payment. The selected package
-          price is validated securely on our server before checkout is created.
+          Approved catering quotes are paid through Clover Hosted Checkout. Card
+          information is entered directly on Clover’s secure payment page.
         </span>
       </section>
-
-      {selectedPackage && (
-        <div className="catering-modal-backdrop" role="presentation">
-          <section
-            className="catering-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="catering-checkout-title"
-          >
-            <div className="catering-modal__header">
-              <div>
-                <p>SECURE CLOVER CHECKOUT</p>
-                <h2 id="catering-checkout-title">Review your order</h2>
-              </div>
-              <button
-                type="button"
-                className="catering-modal__close"
-                onClick={closeCheckout}
-                aria-label="Close checkout"
-              >
-                ×
-              </button>
-            </div>
-
-            <div className="catering-order-summary">
-              <div>
-                <span>Package</span>
-                <strong>{selectedPackage.title}</strong>
-              </div>
-              <div>
-                <span>Guests</span>
-                <strong>{selectedPackage.people}</strong>
-              </div>
-              <div>
-                <span>Total</span>
-                <strong>{usd.format(selectedPackage.price)}</strong>
-              </div>
-            </div>
-
-            <form className="catering-customer-form" onSubmit={startRealPayment}>
-              <div className="catering-form-row">
-                <label>
-                  First name
-                  <input
-                    type="text"
-                    name="firstName"
-                    value={customer.firstName}
-                    onChange={updateCustomer}
-                    autoComplete="given-name"
-                    required
-                  />
-                </label>
-                <label>
-                  Last name
-                  <input
-                    type="text"
-                    name="lastName"
-                    value={customer.lastName}
-                    onChange={updateCustomer}
-                    autoComplete="family-name"
-                    required
-                  />
-                </label>
-              </div>
-
-              <label>
-                Email
-                <input
-                  type="email"
-                  name="email"
-                  value={customer.email}
-                  onChange={updateCustomer}
-                  autoComplete="email"
-                  required
-                />
-              </label>
-
-              {paymentError && (
-                <div className="catering-payment-error" role="alert">
-                  {paymentError}
-                </div>
-              )}
-
-              <button
-                type="submit"
-                className="catering-modal__pay"
-                disabled={paymentStatus === "processing"}
-              >
-                {paymentStatus === "processing"
-                  ? "CONNECTING TO CLOVER..."
-                  : `PAY SECURELY — ${usd.format(selectedPackage.price)}`}
-              </button>
-            </form>
-
-            <p className="catering-secure-note">
-              Card information is entered directly on Clover's secure payment page.
-            </p>
-          </section>
-        </div>
-      )}
     </main>
   );
 };
