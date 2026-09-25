@@ -175,3 +175,40 @@
     font-size: 10px;
   }
 }
+
+
+/* =========================================
+   IPHONE PORTRAIT 9:16 / 19.5:9
+   ========================================= */
+@media (max-width: 430px) and (orientation: portrait) {
+  .navbar {
+    padding-top: max(8px, env(safe-area-inset-top));
+    padding-left: 12px;
+    padding-right: 12px;
+    background: rgba(255,255,255,0.985);
+  }
+
+  .navbar .logo {
+    width: 102px;
+  }
+
+  .order-now-button {
+    min-height: 38px;
+    padding: 8px 12px;
+    font-size: 10px;
+  }
+
+  .navbar-menu {
+    width: calc(100% + 24px);
+    margin-left: -12px;
+    margin-right: -12px;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .navbar-menu a {
+    padding: 10px 7px;
+    font-size: 10px;
+    letter-spacing: 0.03em;
+  }
+}
