@@ -218,9 +218,23 @@ const Catering = () => {
       .filter(Boolean)
       .join("\n");
 
-    const isAppleMobile = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-    const separator = isAppleMobile ? "&" : "?";
-    window.location.href = `sms:${businessPhone}${separator}body=${encodeURIComponent(body)}`;
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const encodedBody = encodeURIComponent(body);
+
+    if (isMobile) {
+      const isAppleMobile = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+      const separator = isAppleMobile ? "&" : "?";
+      window.location.href = `sms:${businessPhone}${separator}body=${encodedBody}`;
+      return;
+    }
+
+    const whatsappNumber = businessPhone.replace(/\D/g, "");
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedBody}`;
+    const opened = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+
+    if (!opened) {
+      window.location.href = whatsappUrl;
+    }
   };
 
   return (
