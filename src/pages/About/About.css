@@ -232,3 +232,41 @@
     line-height: 1.6;
   }
 }
+
+
+/* iPhone portrait refinement */
+@media (max-width: 430px) and (orientation: portrait) {
+  .about-banner {
+    aspect-ratio: 16 / 9;
+  }
+
+  .about-information {
+    padding: 30px 14px 42px;
+  }
+
+  .founder-section > h1 {
+    margin-bottom: 22px;
+    font-size: 28px;
+  }
+
+  .founder-photo {
+    width: min(78vw, 300px);
+  }
+
+  .founder-text h2 {
+    font-size: 24px;
+  }
+
+  .founder-text p {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .mission-vision article {
+    padding: 24px 18px;
+  }
+
+  .mission-vision h2 {
+    font-size: 25px;
+  }
+}
