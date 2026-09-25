@@ -1064,3 +1064,123 @@
     border-radius: 18px;
   }
 }
+
+
+/* =========================================
+   REAL MENU CATEGORY GROUPS
+   ========================================= */
+
+.custom-menu-groups {
+  display: grid;
+  gap: 14px;
+}
+
+.custom-menu-category {
+  border: 1px solid #e6e7dd;
+  border-radius: 20px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.custom-menu-category > summary {
+  list-style: none;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  padding: 22px 24px;
+  background: #f7f8f1;
+}
+
+.custom-menu-category > summary::-webkit-details-marker {
+  display: none;
+}
+
+.custom-menu-category > summary span {
+  color: #949b4b;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+}
+
+.custom-menu-category > summary h3 {
+  margin: 5px 0 4px;
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+.custom-menu-category > summary p {
+  color: #696961;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.category-toggle {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #d8d9ce;
+  border-radius: 50%;
+  color: #70783e;
+  font-size: 24px;
+  font-weight: 500;
+  transition: transform 0.2s ease;
+}
+
+.custom-menu-category[open] .category-toggle {
+  transform: rotate(45deg);
+}
+
+.custom-menu-category .custom-products {
+  padding: 12px;
+  background: #fff;
+}
+
+.custom-product__meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.custom-product__meta-row em {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #eef0de;
+  color: #697137;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 600px) {
+  .custom-menu-category {
+    border-radius: 16px;
+  }
+
+  .custom-menu-category > summary {
+    padding: 18px 16px;
+    gap: 12px;
+  }
+
+  .custom-menu-category > summary h3 {
+    font-size: 21px;
+  }
+
+  .custom-menu-category > summary p {
+    font-size: 12px;
+  }
+
+  .category-toggle {
+    width: 34px;
+    height: 34px;
+    font-size: 21px;
+  }
+
+  .custom-menu-category .custom-products {
+    padding: 10px;
+  }
+}
