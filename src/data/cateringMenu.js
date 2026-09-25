@@ -177,14 +177,76 @@ export const cateringMenuSections = [
         name: "Make Your Own Spoonable",
         meta: "Small",
         description:
-          "Includes 1 base, 2 fruits, 1 crunch and 1 drizzle. Bases include overnight oats, chocolate overnight oats, chia pudding, chocolate chia pudding, warm oatmeal, nonfat Greek yogurt or açaí.",
+          "Includes 1 base, 2 fruits, 1 crunch and 1 drizzle. Extra fruit, crunch, drizzle and boosts can be included in the custom quote.",
+        customization: {
+          base: {
+            label: "Choose 1 base",
+            type: "single",
+            max: 1,
+            options: ["Overnight Oats", "Chocolate Overnight Oats", "Chia Pudding", "Chocolate Chia Pudding", "Warm Oatmeal", "Nonfat Greek Yogurt", "Açaí"],
+          },
+          fruit: {
+            label: "Choose up to 2 fruits",
+            type: "multiple",
+            max: 2,
+            options: ["Strawberries", "Blueberries", "Banana", "Mango", "Pineapple"],
+          },
+          crunch: {
+            label: "Choose 1 crunch",
+            type: "multiple",
+            max: 1,
+            options: ["Classic Granola", "Chocolate Granola", "Walnuts", "Pecans", "Sliced Almonds", "Peanuts", "Coconut Flakes", "Pumpkin Seeds", "Sunflower Seeds", "Chia Seeds", "Hemp Seeds", "Chocolate Chips"],
+          },
+          boost: {
+            label: "Optional boost",
+            type: "multiple",
+            options: ["Spirulina", "Protein Powder — Chocolate", "Protein Powder — Vanilla", "Protein Powder — Plant-Based", "Protein Powder — Whey", "Peanut Butter Powder"],
+          },
+          drizzle: {
+            label: "Choose 1 drizzle",
+            type: "multiple",
+            max: 1,
+            options: ["Honey", "Peanut Butter", "Almond Butter", "Strawberry Jam", "Blueberry Jam"],
+          },
+        },
       },
       {
         id: "myo-spoonable-large",
         name: "Make Your Own Spoonable",
         meta: "Large",
         description:
-          "Includes 1 base, 3 fruits, 2 crunches and 1 drizzle. Bases include overnight oats, chocolate overnight oats, chia pudding, chocolate chia pudding, warm oatmeal, nonfat Greek yogurt or açaí.",
+          "Includes 1 base, 3 fruits, 2 crunches and 1 drizzle. Extra fruit, crunch, drizzle and boosts can be included in the custom quote.",
+        customization: {
+          base: {
+            label: "Choose 1 base",
+            type: "single",
+            max: 1,
+            options: ["Overnight Oats", "Chocolate Overnight Oats", "Chia Pudding", "Chocolate Chia Pudding", "Warm Oatmeal", "Nonfat Greek Yogurt", "Açaí"],
+          },
+          fruit: {
+            label: "Choose up to 3 fruits",
+            type: "multiple",
+            max: 3,
+            options: ["Strawberries", "Blueberries", "Banana", "Mango", "Pineapple"],
+          },
+          crunch: {
+            label: "Choose up to 2 crunches",
+            type: "multiple",
+            max: 2,
+            options: ["Classic Granola", "Chocolate Granola", "Walnuts", "Pecans", "Sliced Almonds", "Peanuts", "Coconut Flakes", "Pumpkin Seeds", "Sunflower Seeds", "Chia Seeds", "Hemp Seeds", "Chocolate Chips"],
+          },
+          boost: {
+            label: "Optional boost",
+            type: "multiple",
+            options: ["Spirulina", "Protein Powder — Chocolate", "Protein Powder — Vanilla", "Protein Powder — Plant-Based", "Protein Powder — Whey", "Peanut Butter Powder"],
+          },
+          drizzle: {
+            label: "Choose 1 drizzle",
+            type: "multiple",
+            max: 1,
+            options: ["Honey", "Peanut Butter", "Almond Butter", "Strawberry Jam", "Blueberry Jam"],
+          },
+        },
       },
     ],
   },
@@ -220,7 +282,42 @@ export const cateringMenuSections = [
         name: "Make Your Own Salad / Bowl",
         meta: "Custom",
         description:
-          "Includes 1 base + 4 toppings + 1 dressing. Greens include romaine, kale, spinach, spring mix, mesclun, green leaf, romaine lettuce and arugula; grains are brown rice or quinoa.",
+          "Includes 1 base + 4 regular toppings + 1 dressing. Premium toppings, cheese, protein and extra dressing can be included in the custom quote.",
+        customization: {
+          base: {
+            label: "Choose 1 base",
+            type: "single",
+            max: 1,
+            options: ["Romaine", "Kale", "Spinach", "Spring Mix", "Mesclun", "Green Leaf", "Romaine Lettuce", "Arugula", "Brown Rice", "Quinoa"],
+          },
+          regularToppings: {
+            label: "Choose up to 4 regular toppings",
+            type: "multiple",
+            max: 4,
+            options: ["Corn", "Tomatoes", "Carrots", "Sunflower Seeds", "Raisins", "Cucumber", "Sweet Potatoes", "Chickpeas", "Black Beans", "Red Onions", "Green Chiles", "Jalapeños"],
+          },
+          premiumToppings: {
+            label: "Optional premium toppings",
+            type: "multiple",
+            options: ["Avocado", "Black Olives", "Edamame", "Mango", "Strawberries", "Walnuts", "Pecans", "Beets", "Apples", "Sliced Almonds"],
+          },
+          cheese: {
+            label: "Optional cheese",
+            type: "multiple",
+            options: ["Feta", "Goat Cheese"],
+          },
+          protein: {
+            label: "Optional protein",
+            type: "multiple",
+            options: ["Chicken Breast", "Turkey Meatballs", "Salmon", "Tofu", "Hard-Boiled Eggs"],
+          },
+          dressing: {
+            label: "Choose 1 dressing",
+            type: "multiple",
+            max: 1,
+            options: ["Cilantro", "Honey Mustard", "Soy-Sesame", "Thai Peanut", "Tzatziki", "Pesto", "Tahini", "Lemon Ginger", "Sweet Chili Sauce"],
+          },
+        },
       },
     ],
   },
