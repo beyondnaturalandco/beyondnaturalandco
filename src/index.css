@@ -52,3 +52,20 @@ a {
   0% { opacity: 0; }
   100% { opacity: 1; }
 }
+
+
+@media (max-width: 430px) and (orientation: portrait) {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    min-height: 100svh;
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
