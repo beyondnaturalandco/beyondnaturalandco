@@ -49,7 +49,12 @@ app.use(
 );
 
 app.get("/health", (_req, res) => {
-  res.json({ ok: true });
+  res.json({
+    ok: true,
+    configured: Boolean(merchantId && privateToken),
+    merchantConfigured: Boolean(merchantId),
+    tokenConfigured: Boolean(privateToken),
+  });
 });
 
 app.post("/api/create-checkout", async (req, res) => {
