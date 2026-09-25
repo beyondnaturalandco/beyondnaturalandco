@@ -4,6 +4,8 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
 import Catering from "./pages/Catering/Catering";
+import CateringPay from "./pages/Catering/CateringPay";
+import CateringQuoteAdmin from "./pages/Catering/CateringQuoteAdmin";
 import Cart from "./pages/Cart/Cart";
 import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
 import Footer from "./components/Footer/Footer";
@@ -24,6 +26,8 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/catering" element={<Catering />} />
+          <Route path="/catering/pay" element={<CateringPay />} />
+          <Route path="/catering/admin" element={<CateringQuoteAdmin />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/order" element={<PlaceOrder />} />
           <Route path="/details/:id" element={<Details />} />
