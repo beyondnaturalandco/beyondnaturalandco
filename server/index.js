@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import crypto from "crypto";
+import nodemailer from "nodemailer";
 
 const app = express();
 const port = Number(process.env.PORT || 3000);
@@ -8,6 +9,10 @@ const port = Number(process.env.PORT || 3000);
 const merchantId = process.env.CLOVER_MERCHANT_ID;
 const privateToken = process.env.CLOVER_PRIVATE_TOKEN;
 const quoteAdminKey = process.env.QUOTE_ADMIN_KEY || "";
+const cateringEmailTo =
+  process.env.CATERING_EMAIL_TO || "beyondnaturalandco@gmail.com";
+const smtpUser = process.env.SMTP_USER || "";
+const smtpPass = process.env.SMTP_PASS || "";
 const frontendOrigin =
   process.env.FRONTEND_ORIGIN ||
   "https://limegreen-capybara-570366.hostingersite.com";
@@ -40,6 +45,27 @@ const isAllowedOrigin = (origin) => {
     return false;
   }
 };
+
+const mailTransport =
+  smtpUser && smtpPass
+    ? nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+          user: smtpUser,
+          pass: smtpPass,
+        },
+      })
+    : null;
+
+const escapeHtml = (value) =>
+  String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 
 const quoteSecret = crypto
   .createHash("sha256")
@@ -180,6 +206,7 @@ app.get("/health", (_req, res) => {
     merchantConfigured: Boolean(merchantId),
     tokenConfigured: Boolean(privateToken),
     quoteAdminConfigured: Boolean(quoteAdminKey),
+    cateringEmailConfigured: Boolean(mailTransport),
   });
 });
 
@@ -223,6 +250,108 @@ app.post("/api/breakfast-social/checkout", async (req, res) => {
     console.error("Breakfast Social checkout failed", error);
     return res.status(error.status || 500).json({
       error: error.message || "Unable to create checkout.",
+    });
+  }
+});
+
+app.post("/api/catering-request", async (req, res) => {
+  try {
+    if (!mailTransport) {
+      return res.status(503).json({
+        error: "Catering email service is not configured yet.",
+      });
+    }
+
+    const {
+      name,
+      phone,
+      email,
+      eventAddress,
+      buyerAddress,
+      eventDate,
+      guestCount,
+      needs,
+    } = req.body || {};
+
+    const clean = {
+      name: String(name || "").trim().slice(0, 120),
+      phone: String(phone || "").trim().slice(0, 50),
+      email: String(email || "").trim().toLowerCase().slice(0, 180),
+      eventAddress: String(eventAddress || "").trim().slice(0, 300),
+      buyerAddress: String(buyerAddress || "").trim().slice(0, 300),
+      eventDate: String(eventDate || "").trim().slice(0, 30),
+      guestCount: String(guestCount || "").trim().slice(0, 20),
+      needs: String(needs || "").trim().slice(0, 4000),
+    };
+
+    if (
+      !clean.name ||
+      !clean.phone ||
+      !clean.email.includes("@") ||
+      !clean.eventAddress ||
+      !clean.buyerAddress ||
+      !clean.needs
+    ) {
+      return res.status(400).json({
+        error: "Please complete all required fields.",
+      });
+    }
+
+    const safe = Object.fromEntries(
+      Object.entries(clean).map(([key, value]) => [key, escapeHtml(value)])
+    );
+
+    const textBody = [
+      "NEW CATERING QUOTE REQUEST",
+      "",
+      `Name: ${clean.name}`,
+      `Phone: ${clean.phone}`,
+      `Email: ${clean.email}`,
+      `Event address: ${clean.eventAddress}`,
+      `Buyer / billing address: ${clean.buyerAddress}`,
+      `Event date: ${clean.eventDate || "Not provided"}`,
+      `Estimated guests: ${clean.guestCount || "Not provided"}`,
+      "",
+      "Catering needs:",
+      clean.needs,
+    ].join("\n");
+
+    await mailTransport.sendMail({
+      from: `Beyond Natural Website <${smtpUser}>`,
+      to: cateringEmailTo,
+      replyTo: clean.email,
+      subject: `New catering quote request — ${clean.name}`,
+      text: textBody,
+      html: `
+        <div style="font-family:Arial,sans-serif;max-width:680px;margin:auto;color:#222">
+          <div style="background:#949b4b;color:#fff;padding:24px 28px;border-radius:18px 18px 0 0">
+            <div style="font-size:12px;letter-spacing:1.4px;font-weight:700">BEYOND NATURAL & CO.</div>
+            <h1 style="margin:8px 0 0;font-size:26px">New Catering Quote Request</h1>
+          </div>
+          <div style="border:1px solid #e5e5df;border-top:0;padding:28px;border-radius:0 0 18px 18px">
+            <table style="width:100%;border-collapse:collapse">
+              <tr><td style="padding:7px 0;color:#777">Name</td><td style="padding:7px 0;font-weight:700">${safe.name}</td></tr>
+              <tr><td style="padding:7px 0;color:#777">Phone</td><td style="padding:7px 0">${safe.phone}</td></tr>
+              <tr><td style="padding:7px 0;color:#777">Email</td><td style="padding:7px 0">${safe.email}</td></tr>
+              <tr><td style="padding:7px 0;color:#777">Event address</td><td style="padding:7px 0">${safe.eventAddress}</td></tr>
+              <tr><td style="padding:7px 0;color:#777">Buyer / billing address</td><td style="padding:7px 0">${safe.buyerAddress}</td></tr>
+              <tr><td style="padding:7px 0;color:#777">Event date</td><td style="padding:7px 0">${safe.eventDate || "Not provided"}</td></tr>
+              <tr><td style="padding:7px 0;color:#777">Estimated guests</td><td style="padding:7px 0">${safe.guestCount || "Not provided"}</td></tr>
+            </table>
+            <div style="margin-top:22px;padding:18px;background:#f7f8f1;border-radius:12px">
+              <div style="font-size:12px;color:#777;font-weight:700;margin-bottom:8px">CATERING NEEDS</div>
+              <div style="white-space:pre-wrap;line-height:1.6">${safe.needs}</div>
+            </div>
+          </div>
+        </div>
+      `,
+    });
+
+    return res.json({ ok: true });
+  } catch (error) {
+    console.error("Catering request email failed", error);
+    return res.status(500).json({
+      error: "Unable to send your request right now. Please try again.",
     });
   }
 });
