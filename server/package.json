@@ -7,8 +7,9 @@
     "node": "22.x"
   },
   "scripts": {
-    "build": "node --check index.js",
-    "start": "node index.js"
+    "build": "node --check index.js && node --check catering-sms.js",
+    "start": "node index.js",
+    "test": "node --test catering-sms.test.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

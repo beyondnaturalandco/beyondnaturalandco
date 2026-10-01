@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
+import { createCateringNotifications } from "./catering-sms.js";
 
 const app = express();
 const port = Number(process.env.PORT || 3000);
@@ -58,6 +59,8 @@ const mailTransport =
         },
       })
     : null;
+
+const cateringNotifications = createCateringNotifications();
 
 const escapeHtml = (value) =>
   String(value || "")
@@ -207,6 +210,8 @@ app.get("/health", (_req, res) => {
     tokenConfigured: Boolean(privateToken),
     quoteAdminConfigured: Boolean(quoteAdminKey),
     cateringEmailConfigured: Boolean(mailTransport),
+    cateringSmsEnabled: cateringNotifications.status.enabled,
+    cateringSmsConfigured: cateringNotifications.status.configured,
   });
 });
 
@@ -316,7 +321,7 @@ app.post("/api/catering-request", async (req, res) => {
       clean.needs,
     ].join("\n");
 
-    await mailTransport.sendMail({
+    await cateringNotifications.sendMailAndNotify(mailTransport, {
       from: `Beyond Natural Website <${smtpUser}>`,
       to: cateringEmailTo,
       replyTo: clean.email,
